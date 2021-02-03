@@ -1,0 +1,11 @@
+{
+	"name": "print-sheet",
+	"title": "print sheet local",
+	"description": "Module local pour imprimer les fiche de personnage",
+	"version": "1.0.0",
+	"minimumCoreVersion": "0.7.5",
+	"compatibleCoreVersion": "0.7.7",
+	"author": "Jideon",
+	"systems": ["dnd5e"],
+    "esmodules": ["/print_sheet.js"]
+}
