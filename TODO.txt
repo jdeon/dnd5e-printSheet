@@ -1,2 +1,1 @@
 -mettre trait, ideal ... dans une liste personality
--Verif qu'il s'agit d'un PC

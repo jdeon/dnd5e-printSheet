@@ -9,7 +9,7 @@ class PrintActorSheetModule {
         const users = game.users.entities;
         const user = users.find(u => u.data._id === game.userId);
         
-        if (game.settings.get("dnd5e-printSheet", "typeExport") > 0) {
+        if (data.isCharacter && game.settings.get("dnd5e-printSheet", "typeExport") > 0) {
             let element = html.find(".window-header .window-title")
             PrintActorSheetModule.addButton(element, obj.object.data, game.actors.entities.find(a => a.data._id === obj.object.data._id));
         }
