@@ -6,107 +6,96 @@ export default class PrintSheetCsv {
         };
     }
     
-    static convertdataToCsvText(data, itemByType) {
-        let outText = 'Nom : ' + this.defaultOptions.separatorChar + data.name + this.defaultOptions.returnLineChar ;
+    static convertdataToCsvText(dataExport) {
+        let outText = 'Nom : ' + this.defaultOptions.separatorChar + dataExport.pcName + this.defaultOptions.returnLineChar ;
         
-        for(var i = 0; i < itemByType.classes.length; i ++){
-            let classe = itemByType.classes[i];
-            outText += classe.name + ' (' + classe.data.levels + ') - ' +  classe.data.subclass + '    ';
+        for(var i = 0; i < dataExport.classes.length; i ++){
+            let classe = dataExport.classes[i];
+            outText += classe.name + ' (' + classe.level + ') - ' +  classe.subclass + '    ';
         }
         outText +=  this.defaultOptions.returnLineChar;
         
-        outText+= 'Alignement : ' + this.defaultOptions.separatorChar + data.data.details.alignment + this.defaultOptions.separatorChar;
-        outText+= 'Race : ' + this.defaultOptions.separatorChar + data.data.details.race + this.defaultOptions.separatorChar;
-        outText+= 'Historique : ' + this.defaultOptions.separatorChar + data.data.details.background + this.defaultOptions.separatorChar;
-        outText+= 'Xp : ' + this.defaultOptions.separatorChar + data.data.details.xp.value + this.defaultOptions.returnLineChar;
+        outText+= 'Alignement : ' + this.defaultOptions.separatorChar + dataExport.alignment + this.defaultOptions.separatorChar;
+        outText+= 'Race : ' + this.defaultOptions.separatorChar + dataExport.race + this.defaultOptions.separatorChar;
+        outText+= 'Historique : ' + this.defaultOptions.separatorChar + dataExport.background + this.defaultOptions.separatorChar;
+        outText+= 'Xp : ' + this.defaultOptions.separatorChar + dataExport.xp.value + '/' + dataExport.xp.nextLvl + this.defaultOptions.returnLineChar;
         
-        outText += 'PV : ' + this.defaultOptions.separatorChar + data.data.attributes.hp.value + '/' + data.data.attributes.hp.max + this.defaultOptions.separatorChar;
-        outText += 'CA : ' + this.defaultOptions.separatorChar + data.data.attributes.ac.value + this.defaultOptions.separatorChar;
-        outText += 'Mouvement : ' + this.defaultOptions.separatorChar + data.data.attributes.movement.walk + 'm' + this.defaultOptions.returnLineChar;
-
-        outText += 'Caracteristique - ' + this.defaultOptions.separatorChar;
-        outText += 'Force : ' + this.defaultOptions.separatorChar + data.data.abilities.str.value + this.defaultOptions.separatorChar;
-        outText += 'Dexterite : ' + this.defaultOptions.separatorChar + data.data.abilities.dex.value + this.defaultOptions.separatorChar;
-        outText += 'Constitution : ' + this.defaultOptions.separatorChar + data.data.abilities.con.value + this.defaultOptions.separatorChar;
-        outText += 'Inteligence : ' + this.defaultOptions.separatorChar + data.data.abilities.int.value + this.defaultOptions.separatorChar;
-        outText += 'Sagesse : ' + this.defaultOptions.separatorChar + data.data.abilities.wis.value + this.defaultOptions.separatorChar;
-        outText += 'Charisme : ' + this.defaultOptions.separatorChar + data.data.abilities.cha.value + this.defaultOptions.returnLineChar;
-
-        outText += 'JdS Maitrisé - ';
-        let arrayAbilities = Object.values(data.data.abilities);
-        for(var i = 0; i < arrayAbilities.length; i++){
-            outText += this.defaultOptions.separatorChar;
-            if(arrayAbilities[i].proficient === 1){
-                 outText += 'X'
-            } else {
-                outText += '-'
-            }
-            outText += this.defaultOptions.separatorChar;
+        outText += 'PV : ' + this.defaultOptions.separatorChar + dataExport.hp.actual + '/' + dataExport.hp.max + this.defaultOptions.separatorChar;
+        outText += 'CA : ' + this.defaultOptions.separatorChar + dataExport.ac + this.defaultOptions.separatorChar;
+        
+        outText += 'Mouvement : ' + this.defaultOptions.separatorChar;
+        for (var i = 0 ; i < dataExport.speeds.length ; i++){
+            let speed = dataExport.speeds[i];
+            outText += speed.name + ':' + speed.value + speed.units ;
         }
         outText += this.defaultOptions.returnLineChar;
         
-        outText += 'Vision : ' + this.defaultOptions.separatorChar + data.data.traits.senses + this.defaultOptions.returnLineChar;
-        
         outText += this.defaultOptions.returnLineChar;
         
+        outText += 'Caracteristique - ' + this.defaultOptions.separatorChar;
+        for (var i = 0 ; i < dataExport.abilities.length ; i++){
+            let abilitie = dataExport.abilities [i];
+            outText += abilitie.name + this.defaultOptions.separatorChar;
+        }
+        outText +=  this.defaultOptions.returnLineChar;
+        outText += 'Valeur - ' + this.defaultOptions.separatorChar;
+        for (var i = 0 ; i < dataExport.abilities.length ; i++){
+            let abilitie = dataExport.abilities [i];
+            outText += abilitie.value + ' (' + abilitie.mod + ')' + this.defaultOptions.separatorChar;
+        }
+        outText +=  this.defaultOptions.returnLineChar;
+        outText += 'JdS - ' + this.defaultOptions.separatorChar;
+        for (var i = 0 ; i < dataExport.abilities.length ; i++){
+            let abilitie = dataExport.abilities [i];
+            outText += abilitie.save + this.defaultOptions.separatorChar;
+        }
+        outText += this.defaultOptions.returnLineChar;
+        outText += this.defaultOptions.returnLineChar;
+        
+        outText += 'Vision : ' + this.defaultOptions.separatorChar;
+        for (var i = 0 ; i < dataExport.senses.length ; i++){
+            let sense = dataExport.senses[i];
+            outText += sense.name + ':' + sense.value + sense.units ;
+        }
+        outText += this.defaultOptions.returnLineChar;       
         
         outText += 'Biographie : ' + this.defaultOptions.returnLineChar;
-        
-        outText += 'Histoire : ' + this.defaultOptions.separatorChar + this.deleteSpecialChar(data.data.details.biography.value) + this.defaultOptions.returnLineChar;
-        
-        outText += 'Apparence : ' + this.defaultOptions.separatorChar + this.deleteSpecialChar(data.data.details.appearance) + this.defaultOptions.returnLineChar;
-        
-        outText += 'Trait : ' + this.defaultOptions.separatorChar + data.data.details.trait + this.defaultOptions.returnLineChar;
-        
-        outText += 'Idéal : ' + this.defaultOptions.separatorChar + data.data.details.ideal + this.defaultOptions.returnLineChar;
-        
-        outText += 'Lien : ' + this.defaultOptions.separatorChar + data.data.details.bond + this.defaultOptions.returnLineChar;
-        
-        outText += 'Défaut : ' + this.defaultOptions.separatorChar + data.data.details.flaw + this.defaultOptions.returnLineChar;
-        
+        outText += 'Histoire : ' + this.defaultOptions.separatorChar + this.deleteSpecialChar(dataExport.biography) + this.defaultOptions.returnLineChar;
+        outText += 'Apparence : ' + this.defaultOptions.separatorChar + this.deleteSpecialChar(dataExport.appearance) + this.defaultOptions.returnLineChar;
+        outText += 'Trait : ' + this.defaultOptions.separatorChar + dataExport.trait + this.defaultOptions.returnLineChar;
+        outText += 'Idéal : ' + this.defaultOptions.separatorChar + dataExport.ideal + this.defaultOptions.returnLineChar;
+        outText += 'Lien : ' + this.defaultOptions.separatorChar + dataExport.bond + this.defaultOptions.returnLineChar;
+        outText += 'Défaut : ' + this.defaultOptions.separatorChar + dataExport.flaw + this.defaultOptions.returnLineChar;
         outText += this.defaultOptions.returnLineChar;
-        
-        
+           
         outText += 'Capacité : ' + this.defaultOptions.returnLineChar;
-        
-        for(var i = 0; i < itemByType.capacites.length; i ++){
-            let capacite = itemByType.capacites[i];
-            outText += capacite.name + this.defaultOptions.separatorChar + this.deleteSpecialChar(capacite.data.description.value) + ' '+ this.defaultOptions.returnLineChar;
+        for(var i = 0; i < dataExport.feats.length; i ++){
+            let feat = dataExport.feats[i];
+            outText += feat.name + this.defaultOptions.separatorChar + this.deleteSpecialChar(feat.description) + ' '+ this.defaultOptions.returnLineChar;
         }
         outText += ' ' + this.defaultOptions.returnLineChar;
         
-        
-        outText += 'Sorts : ' + this.defaultOptions.returnLineChar;
-        
-        for(var i = 0; i < itemByType.sorts.length; i ++){
-            let sort = itemByType.sorts[i];
-            outText += sort.name + ' (Niv' + sort.data.level + ')' + this.defaultOptions.separatorChar;
-            outText += sort.data.activation.cost + ' ' + sort.data.activation.type + this.defaultOptions.separatorChar;
-            outText += (sort.data.components.vocal ? 'V,' : '') + (sort.data.components.somatic ? 'S,' : '') + (sort.data.components.material ? 'M (' + sort.data.materials.value + '),' : '') + (sort.data.components.ritual ? 'R,' : '') + (sort.data.components.concentration ? 'C,' : '') + this.defaultOptions.separatorChar;
-            outText += this.deleteSpecialChar(sort.data.description.value) + ' ' + this.defaultOptions.returnLineChar;
+        outText += 'Sorts : ' + this.defaultOptions.returnLineChar;   
+        for(var i = 0; i < dataExport.spells.length; i ++){
+            let spell = dataExport.spells[i];
+            outText += spell.name + ' (Niv' + spell.level + ')' + this.defaultOptions.separatorChar;
+            outText += spell.activation.cost + ' ' + spell.activation.type + this.defaultOptions.separatorChar;
+            outText += spell.components + this.defaultOptions.separatorChar;
+            outText += this.deleteSpecialChar(spell.description) + ' ' + this.defaultOptions.returnLineChar;
         }
         outText += ' ' + this.defaultOptions.returnLineChar;
-      /*"data": {
-        "school": "evo",
-        "preparation": {
-          "mode": "always",
-          "prepared": false
-        }
-    */
-        
         
         outText += 'Iventaire : ' + this.defaultOptions.returnLineChar;
+        outText += 'pp' + this.defaultOptions.separatorChar + dataExport.money.pp + this.defaultOptions.separatorChar;
+        outText += 'po' + this.defaultOptions.separatorChar + dataExport.money.gp + this.defaultOptions.separatorChar;
+        outText += 'pe' + this.defaultOptions.separatorChar + dataExport.money.ep + this.defaultOptions.separatorChar;
+        outText += 'pa' + this.defaultOptions.separatorChar + dataExport.money.sp + this.defaultOptions.separatorChar;
+        outText += 'pc' + this.defaultOptions.separatorChar + dataExport.money.cp + this.defaultOptions.returnLineChar;
         
-        outText += 'pp' + this.defaultOptions.separatorChar + data.data.currency.pp + this.defaultOptions.separatorChar;
-        outText += 'po' + this.defaultOptions.separatorChar + data.data.currency.gp + this.defaultOptions.separatorChar;
-        outText += 'pe' + this.defaultOptions.separatorChar + data.data.currency.ep + this.defaultOptions.separatorChar;
-        outText += 'pa' + this.defaultOptions.separatorChar + data.data.currency.sp + this.defaultOptions.separatorChar;
-        outText += 'pc' + this.defaultOptions.separatorChar + data.data.currency.cp + this.defaultOptions.returnLineChar;
-        
-        for(var i = 0; i < itemByType.objets.length; i ++){
-            let objet = itemByType.objets[i];
-            outText += objet.name +  '(' + objet.data.quantity + ')' + this.defaultOptions.separatorChar;
-            outText += this.deleteSpecialChar(objet.data.description.value) + ' ' + this.defaultOptions.returnLineChar;
+        for(var i = 0; i < dataExport.objects.length; i ++){
+            let object = dataExport.objects[i];
+            outText += object.name +  '(' + object.quantity + ')' + this.defaultOptions.separatorChar;
+            outText += this.deleteSpecialChar(object.description) + ' ' + this.defaultOptions.returnLineChar;
         }
         outText += ' ' + this.defaultOptions.returnLineChar;
         

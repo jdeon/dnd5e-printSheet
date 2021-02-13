@@ -46,7 +46,7 @@ async function printActorSheet(dataSheet) {
     let textExport;
     let exportTyp;
     
-    if(true){//TODO remplacer par type export désirer
+    if(false){//TODO remplacer par type export désirer
         textExport = await PrintSheetHtml.convertdataToHtmlText(dataToExport);
         exportTyp = 'html';
     } else {
