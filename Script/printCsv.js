@@ -62,10 +62,10 @@ export default class PrintSheetCsv {
         outText += 'Biographie : ' + this.defaultOptions.returnLineChar;
         outText += 'Histoire : ' + this.defaultOptions.separatorChar + this.deleteSpecialChar(dataExport.biography) + this.defaultOptions.returnLineChar;
         outText += 'Apparence : ' + this.defaultOptions.separatorChar + this.deleteSpecialChar(dataExport.appearance) + this.defaultOptions.returnLineChar;
-        outText += 'Trait : ' + this.defaultOptions.separatorChar + dataExport.trait + this.defaultOptions.returnLineChar;
-        outText += 'Idéal : ' + this.defaultOptions.separatorChar + dataExport.ideal + this.defaultOptions.returnLineChar;
-        outText += 'Lien : ' + this.defaultOptions.separatorChar + dataExport.bond + this.defaultOptions.returnLineChar;
-        outText += 'Défaut : ' + this.defaultOptions.separatorChar + dataExport.flaw + this.defaultOptions.returnLineChar;
+        for(var i = 0; i < dataExport.personality.length; i ++){
+            let personality = dataExport.personality[i];
+            outText += personality.name + ' : ' + this.defaultOptions.separatorChar + personality.description + this.defaultOptions.returnLineChar;
+        }
         outText += this.defaultOptions.returnLineChar;
            
         outText += 'Capacité : ' + this.defaultOptions.returnLineChar;

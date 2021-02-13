@@ -141,39 +141,17 @@
 
     <div style="float:left;width:30%">  <!--Regrouper en liste ?-->
         <div>  
-            <table>  
+            <table> 
+                {{#each personality}}
                 <tr>  
-                    <th scope="col">Trait</th>  
+                    <th scope="col">{{this.name}}</th>  
                 </tr>  
                 <tr>  
                     <td>  
-                        <span>{{trait}}</span>  
+                        <span>{{this.description}}</span>  
                     </td>  
-                </tr>  
-                <tr>  
-                    <th scope="col">Idéal</th>  
-                </tr>  
-                <tr>  
-                    <td>  
-                        <span>{{trait}}</span>  
-                    </td>  
-                </tr>  
-                <tr>  
-                    <th scope="col">Lien</th>  
-                </tr>  
-                <tr>  
-                    <td>  
-                        <span>{{bond}}</span>  
-                    </td>  
-                </tr>  
-                <tr>  
-                    <th scope="col">Défaut</th>  
-                </tr>  
-                <tr>  
-                    <td>  
-                        <span>{{flaw}}</span>  
-                    </td>  
-                </tr>  
+                </tr>
+                {{/each}}
             </table>  
         </div>  
 

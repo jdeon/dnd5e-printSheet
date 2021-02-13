@@ -26,11 +26,13 @@ export default class DataMapper {
         dataExport.spells = dataItem.spells;
         
         dataExport.biography = dataDnd.data.details.biography.value;
-        dataExport.appearance = dataDnd.data.details.appearance;
-        dataExport.trait = dataDnd.data.details.trait;
-        dataExport.ideal = dataDnd.data.details.ideal;
-        dataExport.bond = dataDnd.data.details.bond;
-        dataExport.flaw = dataDnd.data.details.flaw;
+        dataExport.appearance = dataDnd.data.details.appearance; //localize "DND5E.Appearance" 
+        
+        dataExport.personality = [];
+        dataExport.personality.push({name : game.i18n.localize("DND5E.PersonalityTraits"), description : dataDnd.data.details.trait});
+        dataExport.personality.push({name : game.i18n.localize("DND5E.Ideals"), description : dataDnd.data.details.ideal});
+        dataExport.personality.push({name : game.i18n.localize("DND5E.Bonds"), description : dataDnd.data.details.bond});
+        dataExport.personality.push({name : game.i18n.localize("DND5E.Flaws"), description : dataDnd.data.details.flaw});
         
         //TODO ajoutez titre de dnd;
         dataExport.money = {
