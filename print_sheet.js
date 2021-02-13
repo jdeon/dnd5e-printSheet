@@ -8,9 +8,9 @@ class PrintActorSheetModule {
     static onRenderActorSheet(obj, html, data) {
         const users = game.users.entities;
         const user = users.find(u => u.data._id === game.userId);
-        if (/*user.data.role >= 2 && */!game.settings.get("print-sheet", "disableButton")) {
+        
+        if (game.settings.get("dnd5e-printSheet", "typeExport") > 0) {
             let element = html.find(".window-header .window-title")
-            
             PrintActorSheetModule.addButton(element, obj.object.data, game.actors.entities.find(a => a.data._id === obj.object.data._id));
         }
     }
@@ -45,17 +45,16 @@ async function printActorSheet(dataSheet) {
     
     let textExport;
     let exportTyp;
+    let typExport = game.settings.get("dnd5e-printSheet", "typeExport");
     
-    if(false){//TODO remplacer par type export désirer
+    if(typExport === 1){
         textExport = await PrintSheetHtml.convertdataToHtmlText(dataToExport);
         exportTyp = 'html';
-    } else {
+    } else if (typExport === 2){
         textExport = PrintSheetCsv.convertdataToCsvText(dataToExport);
         exportTyp = 'csv';
     }
     
-    // Trigger file save procedure
-    debugger;
     const filename = `fvtt-${dataToExport.pcName.replace(/\s/g, "_")}.` + exportTyp;
     saveDataToFile(textExport, "text/"+exportTyp, filename); //; charset=UTF-8
 }
@@ -75,7 +74,7 @@ function customSaveDataToFile(data, type, filename) {
 }
 
 Hooks.once('init', async function () {
-    console.log('print-sheet | Initializing print-sheet');
+    console.log('dnd5e-printSheet | Initializing dnd5e-printSheet');
     // Assign custom classes and constants here
     // Register custom module settings
     //registerSettings();
@@ -85,13 +84,19 @@ Hooks.once('init', async function () {
 });
 
 Hooks.once('ready', () => {
-    game.settings.register("print-sheet", "disableButton", {
-		name: game.i18n.localize("metricsystem.settings.disable.name"),
-		hint: game.i18n.localize("metricsystem.settings.disable.hint"),
+    game.settings.register("dnd5e-printSheet", "typeExport", {
+		name: "Type export",
+		hint: "Définie les types de fichier exporté",
 		scope: "world",
-		config: true,
-		default: false,
-		type: Boolean
+		scope: "client",
+        config: true,
+        type: Number,
+        choices: {
+            0 : "",
+            1 : "Html",
+            2 : "CSV"
+        },
+        default: 0
 	});
 });
 
