@@ -1,7 +1,38 @@
 import { DND5E } from "../../../systems/dnd5e/module/config.js";
 
 
-export default class PrintSheetHtml { 
+export default class PrintSheetHtml extends FormApplication {
+//utiliser this._renderInner(data, options) pour généré la liste
+    constructor(object = {}, options = {}) {
+        super(object, options);
+        this._data = object;
+    }
+        
+    get title() {
+        return "PrintSheet";
+    }
+    
+    static get defaultOptions() {
+        const options = super.defaultOptions;
+        options.template = "modules/dnd5e-printSheet/template/htmlExportTemplate.html";
+        options.resizable = true;
+        options.title = "Export";
+        return options;
+    }
+
+    
+    static async convertdataToHtmlText(dataExport) {
+        let exportFrom = new PrintSheetHtml(dataExport, this.defaultOptions);
+        let htmlForm = await exportFrom._renderInner(dataExport, this.defaultOptions);
+        let result = PrintSheetHtml.generationPrefixSourceHtml();
+        
+        for(var i = 0 ; i < htmlForm.length ; i++){
+            result += htmlForm[i].outerHTML;
+        }
+        
+        
+        return result;
+    }
     
     static generationPrefixSourceHtml(){
         let  outText = '<!DOCTYPE html>'
@@ -81,7 +112,7 @@ export default class PrintSheetHtml {
         return outText;
     }
     
-    static convertdataToHtmlText(data, dataSheet, itemByType) {
+    static convertdataToHtmlText2(data, dataSheet, itemByType) {
         let outText = this.generationPrefixSourceHtml();
         
         outText += '<div id=globalContainner style="float:left;width:100%">'

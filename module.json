@@ -1,6 +1,6 @@
 {
-	"name": "print-sheet",
-	"title": "print sheet local",
+	"name": "dnd5e-printSheet",
+	"title": "dnd5e - print sheet",
 	"description": "Module local pour imprimer les fiche de personnage",
 	"version": "1.0.0",
 	"minimumCoreVersion": "0.7.5",

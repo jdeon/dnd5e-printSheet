@@ -1,0 +1,294 @@
+<div id=globalContainner style="float:left;width:100%">
+    <div style="float:left;width:100%">  
+
+        <div style="float:left;width:30%">  
+            <h1> {{pcName}}</h1>  
+        </div>  
+
+        <div style="float:left;width:70%">  
+
+            <table>  
+                <tr>  
+                    <td>
+                        <span>Classe :</span> 
+                        <span>{{#each classes}}
+                            {{this.name}} ({{this.level}}) - {{this.subclass}}
+                        {{/each}}</span>
+                    </td>  
+                    <td>  
+                        <span>Historique :</span>  
+                        <span>{{background}}</span>  
+                    </td>  
+                    <td>  
+                        <span>Nom joueur :</span>  
+                    </td>  
+                </tr>  
+                <tr>  
+                    <td>  
+                        <span>Race :</span>  
+                        <span>{{race}}</span>  
+                    </td>  
+                    <td>  
+                        <span>Alignement :</span>  
+                        <span>{{alignment}}</span>  
+                    </td>  
+                    <td>  
+                        <span>Xp :</span>  
+                        <span>{{xp.value}}/{{xp.nextLvl}}</span>  
+                    </td>  
+                </tr>  
+            </table>  
+        </div>  
+    </div>  
+
+    <div style="float:left;width:30%">  
+        <div style="float:left;width:70px">  
+            <table>
+                {{#each abilities}}
+                <tr>  
+                    <th scope="col">{{this.name}}</th>  
+                </tr>
+                 <tr>  
+                    <td>  
+                        <span>{{this.value}}</span> 
+                    </td>  
+                </tr>
+                <tr>  
+                    <td>  
+                        <span>{{this.mod}} - Jds : {{this.save}}</span> 
+                    </td>  
+                </tr> 
+                {{/each}}
+
+            </table>  
+        </div>  
+    </div>  
+
+    <div style="float:left;width:30%">  
+        <div style="float:right;width:100%">  
+            <div style="float:left;width:30%">  
+                <table>  
+                    <tr>  
+                        <th scope="col">PV</th>  
+                    </tr>  
+                    <tr>  
+                        <td>
+                            <span>{{hp.actual}}/{{hp.max}}</span>  
+                        </td>  
+                    </tr>  
+                </table>  
+            </div>         
+            <div style="float:left;width:30%">  
+                <table>  
+                    <tr>  
+                        <th scope="col">CA</th>  
+                    </tr>  
+                    <tr>  
+                        <td>  
+                            <span>{{ac}}</span>  
+                        </td>  
+                    </tr>  
+                </table>  
+            </div>  
+            <div style="float:left;width:30%">  
+                <table>  
+                    <tr>  
+                        <th scope="col">Vitesse</th>  
+                    </tr>  
+                    <tr>  
+                        <td>  
+                            <span>{{#each speeds}}
+                                {{this.name}}:{{this.value}}{{this.units}}; 
+                            {{/each}}</span>  
+                        </td>  
+                    </tr>  
+                </table>  
+            </div>  
+            <div style="float:left;width:100%">  
+                <table>  
+                    <tr>  
+                        <th scope="col">Vision</th>  
+                    </tr>  
+                    <tr>  
+                        <td>  
+                            <span>{{#each senses}}
+                                {{this.name}}:{{this.value}}{{this.units}};
+                            {{/each}}</span>
+                        </td>  
+                    </tr>  
+                </table>  
+            </div>  
+        </div>  
+
+        <div style="float:right;width:100%">  
+            <h2>Compétence</h2>  
+            <table>  
+                <tr>  
+                    <th>Nom</th>  
+                    <th>Modificateur</th>  
+                    <th>Passive</th>  
+                </tr>
+                {{#each skills}}                
+                <tr>  
+                    <td>{{this.name}}</td>  
+                    <td>{{this.mod}}</td>  
+                    <td>{{this.passive}}</td>  
+                </tr> 
+                {{/each}}
+            </table>  
+        </div>  
+    </div>  
+
+    <div style="float:left;width:30%">  <!--Regrouper en liste ?-->
+        <div>  
+            <table>  
+                <tr>  
+                    <th scope="col">Trait</th>  
+                </tr>  
+                <tr>  
+                    <td>  
+                        <span>{{trait}}</span>  
+                    </td>  
+                </tr>  
+                <tr>  
+                    <th scope="col">Idéal</th>  
+                </tr>  
+                <tr>  
+                    <td>  
+                        <span>{{trait}}</span>  
+                    </td>  
+                </tr>  
+                <tr>  
+                    <th scope="col">Lien</th>  
+                </tr>  
+                <tr>  
+                    <td>  
+                        <span>{{bond}}</span>  
+                    </td>  
+                </tr>  
+                <tr>  
+                    <th scope="col">Défaut</th>  
+                </tr>  
+                <tr>  
+                    <td>  
+                        <span>{{flaw}}</span>  
+                    </td>  
+                </tr>  
+            </table>  
+        </div>  
+
+        <div>  
+            <div style="">  
+                <table>  
+                    <tr>  
+                        <th scope="col">Biographie</th>  
+                    </tr>  
+                    <tr>  
+                        <td> 
+                            <span>  
+                                {{{biography}}}
+                            </span>  
+                        </td>  
+                    </tr>  
+                </table>  
+            </div>  
+        </div>  
+
+        <div>  
+            <div style="">  
+                <table>  
+                    <tr>  
+                        <th scope="col">Apparence</th>  
+                    </tr>  
+                    <tr>  
+                        <td>  
+                            <span> 
+                                {{{appearance}}}
+                            </span>  
+                        </td>  
+                    </tr>  
+                </table>  
+            </div>  
+        </div>  
+    </div>  
+
+    <div style="float:left;width:100%">  
+        <div style="float:left;width:100%">  
+            <h2>Capacité</h2>  
+            <table>  
+                <tr>  
+                    <th>Nom</th>  
+                    <th>Description</th>  
+                </tr> 
+                {{#each feats}}                
+                <tr>  
+                    <td>{{this.name}}</td>  
+                    <td>{{{this.description}}}</td> 
+                </tr> 
+                {{/each}}
+            </table>  
+        </div>  
+
+        <div style="float:left;width:100%">  
+            <h2>Sorts</h2>  
+            <table>  
+                <tr>  
+                    <th>Nom</th>  
+                    <th>Niveau</th>  
+                    <th>Activation</th>  
+                    <th>Composant</th>  
+                    <th>Description</th>  
+                </tr>  
+
+                {{#each spells}}
+                <tr>
+                    <td>{{this.name}}</td>  
+                    <td>{{this.level}}</td>  
+                    <td>{{this.activation.cost}} {{this.activation.type}}</td>  
+                    <td>{{this.components}}</td>  
+                    <td>{{{this.description}}}</td> 
+                </tr>
+                {{/each}}
+
+            </table>  
+        </div>  
+
+        <div style="float:left;width:100%">  
+            <h2>Iventaire</h2>  
+            <table>  
+                <tr>  
+                    <th>pp</th>  
+                    <th>po</th>  
+                    <th>pe</th>  
+                    <th>pa</th>  
+                    <th>pc</th>  
+                </tr>  
+                <tr>  
+                    <td>{{money.pp}}</td>  
+                    <td>{{money.gp}}</td>  
+                    <td>{{money.pe}}</td>  
+                    <td>{{money.pa}}</td>  
+                    <td>{{money.pc}}</td>  
+                </tr>  
+            </table>  
+
+            <br/>  
+
+            <table>  
+                <tr>  
+                    <th>Nom</th>  
+                    <th>Quantite</th>  
+                    <th>Description</th>  
+                </tr> 
+
+                {{#each objects}}
+                <tr>
+                    <td>{{this.name}}</td>  
+                    <td>{{this.quantity}}</td>  
+                    <td>{{{this.description}}}</td> 
+                </tr>
+                    {{/each}}
+            </table>  
+        </div>  
+    </div>  
+</div>
