@@ -5,13 +5,10 @@ import PrintSheetHtml from "./script/printHtml.js";
 
 class PrintActorSheetModule {
     
-    static onRenderActorSheet(obj, html, data) {
-        const users = game.users.entities;
-        const user = users.find(u => u.data._id === game.userId);
-        
+    static onRenderActorSheet(obj, html, data) {      
         if (data.isCharacter && game.settings.get("dnd5e-printSheet", "typeExport") > 0) {
             let element = html.find(".window-header .window-title")
-            PrintActorSheetModule.addButton(element, obj.object.data, game.actors.entities.find(a => a.data._id === obj.object.data._id));
+            PrintActorSheetModule.addButton(element, obj.object.data, game.actors.find(a => a.data._id === obj.object.data._id));
         }
     }
     
