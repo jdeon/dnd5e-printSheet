@@ -1,6 +1,3 @@
-import { DND5E } from "../../../systems/dnd5e/module/config.js";
-
-
 export default class PrintSheetHtml extends FormApplication {
 //utiliser this._renderInner(data, options) pour généré la liste
     constructor(object = {}, options = {}) {

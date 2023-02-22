@@ -1,21 +1,17 @@
-import { DND5E } from "../../systems/dnd5e/module/config.js";
 import DataMapper from "./script/mapToDataExport.js"
 import PrintSheetCsv from "./script/printCsv.js";
 import PrintSheetHtml from "./script/printHtml.js";
 
 class PrintActorSheetModule {
     
-    static onRenderActorSheet(obj, html, data) {
-        const users = game.users.entities;
-        const user = users.find(u => u.data._id === game.userId);
-        
+    static onRenderActorSheet(obj, html, data) {      
         if (data.isCharacter && game.settings.get("dnd5e-printSheet", "typeExport") > 0) {
             let element = html.find(".window-header .window-title")
-            PrintActorSheetModule.addButton(element, obj.object.data, game.actors.entities.find(a => a.data._id === obj.object.data._id));
+            PrintActorSheetModule.addButton(element, obj.object);
         }
     }
     
-    static addButton(element, dataObj, actor) {
+    static addButton(element, dataObj) {
         // Can't find it?
         if (element.length != 1) {
             return;
@@ -29,18 +25,7 @@ class PrintActorSheetModule {
 
 async function printActorSheet(dataSheet) {
     // Prepare export data
-    const dataDndSheet = duplicate(dataSheet);
-
-    // Flag some metadata about where the entity was exported some - in case migration is needed later
-    /*
-    data.flags["exportSource"] = {
-    world: game.world.id,
-    system: game.system.id,
-    coreVersion: game.data.version,
-    systemVersion: game.system.data.version
-    };
-    */
-    
+    const dataDndSheet = dataSheet.clone(); 
     const dataToExport = DataMapper.mapDndDataToDataExport(dataDndSheet);
     
     let textExport;
@@ -51,7 +36,7 @@ async function printActorSheet(dataSheet) {
         textExport = await PrintSheetHtml.convertdataToHtmlText(dataToExport);
         exportTyp = 'html';
     } else if (typExport === 2){
-        textExport = PrintSheetCsv.convertdataToCsvText(dataToExport);
+        textExport =  PrintSheetCsv.convertdataToCsvText(dataToExport);
         exportTyp = 'csv';
     }
     
