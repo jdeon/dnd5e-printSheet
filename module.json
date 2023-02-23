@@ -2,7 +2,7 @@
 	"id": "dnd5e-printSheet",
 	"title": "Print sheet for D&D5e",
 	"description": "Module local pour imprimer les fiche de personnage",
-	"version": "2.0.0",
+	"version": "2.0.0-beta",
 	"compatibility": {
 		"minimum": "10.274",
 		"verified": "10.291",
