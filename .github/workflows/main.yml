@@ -23,7 +23,7 @@ jobs:
         replace: ${{ steps.get-version.outputs.version }}
 
     # create a zip file with all files required by the module to add to the release
-    - run: zip -r ./module.zip module.json print_sheet.js script/ template/ fonts/
+    - run: zip -vr ./module.zip module.json print_sheet.js script/* template/ fonts/
 
     # Create a release for this specific version
     - name: Create Release
