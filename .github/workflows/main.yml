@@ -23,7 +23,7 @@ jobs:
         replace: ${{ steps.get-version.outputs.version }}
 
     # create a zip file with all files required by the module to add to the release
-    - run: zip -x ./module.zip .git*
+    - run: zip -r module.zip . -x '*.git*'
 
     # Create a release for this specific version
     - name: Create Release
