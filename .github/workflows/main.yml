@@ -19,12 +19,11 @@ jobs:
     - name: Find and Replace
       uses: jacobtomlinson/gha-find-replace@v3
       with:
-        find: "${VERSION}"
+        find: VERSION_PATHHOLDER
         replace: ${{ steps.get-version.outputs.version }}
-        include: "**module.json"
 
     # create a zip file with all files required by the module to add to the release
-    - run: zip -r ./module.zip module.json print_sheet.js script/ template/ font
+    - run: zip -r module.zip . -x '*.git*'
 
     # Create a release for this specific version
     - name: Create Release
@@ -38,18 +37,4 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         artifacts: './module.json,./module.zip'
         tag: ${{ steps.get-version.outputs.version }}
-
-    # Update the 'latest' release
-    - name: Create Release
-      id: create_latest_release
-      uses: ncipollo/release-action@v1
-      if: endsWith(github.ref, 'master')
-      with:
-        allowUpdates: true
-        name: Latest
-        draft: false
-        prerelease: false
-        token: ${{ secrets.GITHUB_TOKEN }}
-        artifacts: './module.json,./module.zip'
-        tag: latest
   
