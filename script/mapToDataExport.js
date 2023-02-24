@@ -125,7 +125,7 @@ export default class DataMapper {
     
     static sortItemByType(items){
         let classes = [];
-        let objects = []
+        let objects = [];
         let feats = [];
         let spells = [];
         
@@ -141,6 +141,7 @@ export default class DataMapper {
                     spells.push(DataMapper.mapSpellsDndDataToExport(item));
                     break;
                 case 'background':
+                case 'subclass':
                     //Do nothing;
                     break;
                 default:
@@ -168,7 +169,10 @@ export default class DataMapper {
         
         exportClassData.name = dndClassData.name;
         exportClassData.level = dndClassData.system.levels;
-        exportClassData.subclass = dndClassData.system.subclass;
+
+        if(dndClassData._classLink && dndClassData._classLink.name){
+            exportClassData.subclass = dndClassData._classLink.name;
+        }
         
         return exportClassData;
     }
