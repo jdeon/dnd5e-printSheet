@@ -140,6 +140,9 @@ export default class DataMapper {
                 case 'spell':
                     spells.push(DataMapper.mapSpellsDndDataToExport(item));
                     break;
+                case 'background':
+                    //Do nothing;
+                    break;
                 default:
                     objects.push(DataMapper.mapOjbectDndDataToExport(item));
                     break;
