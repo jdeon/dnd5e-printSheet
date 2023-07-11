@@ -16,7 +16,7 @@ class PrintActorSheetModule {
         if (element.length != 1) {
             return;
         }
-        let button = $(`<a class="popout" style><i class="fas fa-file-export fa-fw"></i>Imprimer fiche</a>`);
+        let button = $(`<a class="popout" style><i class="fas fa-file-export fa-fw"></i>${game.i18n.localize("DND5E-PRINT-SHEET.PrintSheet")}</a>`);
         button.on('click', (event) => printActorSheet(dataObj));
         element.after(button);
     }
@@ -70,8 +70,8 @@ Hooks.once('init', async function () {
 
 Hooks.once('ready', () => {
     game.settings.register("dnd5e-printSheet", "typeExport", {
-		name: "Type export",
-		hint: "Définie les types de fichier exporté",
+		name: game.i18n.localize("DND5E-PRINT-SHEET.Settings.ExportType.Name"),
+		hint: game.i18n.localize("DND5E-PRINT-SHEET.Settings.ExportType.Hint"),
 		scope: "world",
 		scope: "client",
         config: true,

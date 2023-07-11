@@ -12,7 +12,7 @@ export default class DataMapper {
         dataExport.xp = {value : dataDnd.system.details.xp.value, lvl : dataDnd.system.details.level ,nextLvl : dataDnd.system.details.xp.max};//TODO level et xp max
         dataExport.classes = dataItem.classes;
         
-        dataExport.ac = dataDnd.system.attributes.ac.flat;
+        dataExport.ac = dataDnd.system.attributes.ac.value;
         dataExport.hp = {actual : dataDnd.system.attributes.hp.value, max : dataDnd.system.attributes.hp.max};
         dataExport.speeds = DataMapper.mapDndSpeedDataToDataExport(dataDnd.system.attributes.movement);
         dataExport.senses = DataMapper.mapDndSensesDataToDataExport(dataDnd.system.attributes.senses);
