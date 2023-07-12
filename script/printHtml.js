@@ -11,16 +11,16 @@ export default class PrintSheetHtml extends FormApplication {
     
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.template = "modules/dnd5e-printSheet/template/htmlExportTemplate.html";
         options.resizable = true;
         options.title = "Export";
         return options;
     }
 
     
-    static async convertdataToHtmlText(dataExport) {
-        let exportFrom = new PrintSheetHtml(dataExport, this.defaultOptions);
-        let htmlForm = await exportFrom._renderInner(dataExport, this.defaultOptions);
+    static async convertdataToHtmlText(dataExport, template) {
+        let defaultOptions = {...this.defaultOptions, template}
+        let exportFrom = new PrintSheetHtml(dataExport, defaultOptions);
+        let htmlForm = await exportFrom._renderInner(dataExport, defaultOptions);
         let result = PrintSheetHtml.generationPrefixSourceHtml();
         
         for(var i = 0 ; i < htmlForm.length ; i++){
@@ -29,7 +29,6 @@ export default class PrintSheetHtml extends FormApplication {
         
         result += '</body>';
         result += '</html>';
-        
         return result;
     }
     
@@ -37,7 +36,7 @@ export default class PrintSheetHtml extends FormApplication {
         let  outText = '<!DOCTYPE html>'
         outText += '<html lang="fr">';
         outText += '<head>';
-        
+        /*
         outText += '<style>';
         outText += '                                \
         td,                                         \

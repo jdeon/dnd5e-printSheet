@@ -33,11 +33,14 @@ async function printActorSheet(dataSheet) {
     let typExport = game.settings.get("dnd5e-printSheet", "typeExport");
     
     if(typExport === 1){
-        textExport = await PrintSheetHtml.convertdataToHtmlText(dataToExport);
+        textExport = await PrintSheetHtml.convertdataToHtmlText(dataToExport, 'modules/dnd5e-printSheet/template/htmlPlainExportTemplate.html');
         exportTyp = 'html';
     } else if (typExport === 2){
         textExport =  PrintSheetCsv.convertdataToCsvText(dataToExport);
         exportTyp = 'csv';
+    } else if (typExport === 3){
+        textExport =  await PrintSheetHtml.convertdataToHtmlText(dataToExport, 'modules/dnd5e-printSheet/template/htmlAccordionExportTemplate.html');
+        exportTyp = 'html';
     }
     
     const filename = `fvtt-${dataToExport.pcName.replace(/\s/g, "_")}.` + exportTyp;
@@ -64,7 +67,7 @@ Hooks.once('init', async function () {
     // Register custom module settings
     //registerSettings();
     
-    return loadTemplates(['modules/dnd5e-printSheet/template/htmlExportTemplate.html']);
+    return loadTemplates(['modules/dnd5e-printSheet/template/htmlExportTemplate.html', 'modules/dnd5e-printSheet/template/htmlAccordionExportTemplate']);
     
 });
 
@@ -78,8 +81,9 @@ Hooks.once('ready', () => {
         type: Number,
         choices: {
             0 : "",
-            1 : "Html",
-            2 : "CSV"
+            1 : "Plain Html",
+            2 : "CSV",
+            3 : "Accordion Html (Mobile friendly)",
         },
         default: 0
 	});
