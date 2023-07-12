@@ -51,7 +51,7 @@ export default class DataMapper {
             let dataAbilitieExport = {};
             dataAbilitieExport.name = game.dnd5e.config.abilities[key];
             dataAbilitieExport.value = abilitie.value;
-            dataAbilitieExport.mod = abilitie.mod;
+            dataAbilitieExport.mod = abilitie.mod > 0 ? '+' + abilitie.mod : abilitie.mod;
             dataAbilitieExport.save = abilitie.save;
             
             /*
