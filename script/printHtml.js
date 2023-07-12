@@ -36,36 +36,7 @@ export default class PrintSheetHtml extends FormApplication {
         let  outText = '<!DOCTYPE html>'
         outText += '<html lang="fr">';
         outText += '<head>';
-        /*
-        outText += '<style>';
-        outText += '                                \
-        td,                                         \
-        th {                                        \
-            border: 1px solid rgb(190, 190, 190);   \
-            padding: 10px;                          \
-        }                                           \
-        td {                                        \
-            text-align: center;                     \
-        }                                           \
-        tr:nth-child(even) {                        \
-            background-color: #eee;                 \
-        }                                           \
-        th[scope="col"] {                           \
-            background-color: #696969;              \
-            color: #fff;                            \
-        }                                           \
-        th[scope="row"] {                           \
-            background-color: #d7d9f2;              \
-        }                                           \
-        table {                                     \
-            border-collapse: collapse;              \
-            border: 2px solid rgb(200, 200, 200);   \
-            letter-spacing: 1px;                    \
-            font-family: sans-serif;                \
-            font-size: .8rem;                       \
-        }';
-        outText += '</style>';
-        
+    
         outText += '</head>';
         outText += '<body>';
         
