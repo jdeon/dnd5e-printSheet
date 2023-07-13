@@ -7,7 +7,8 @@ export default class PrintSheetCsv {
     }
     
     static convertdataToCsvText(dataExport) {
-        let outText = PrintSheetCsv.createSimpleField(game.i18n.localize("DND5E-PRINT-SHEET.Name"),  dataExport.pcName) ;
+        let outText = '\uFEFF' //To accept special caracter
+        outText += PrintSheetCsv.createSimpleField(game.i18n.localize("DND5E-PRINT-SHEET.Name"),  dataExport.pcName) ;
         outText += this.defaultOptions.returnLineChar;
 
         for(var i = 0; i < dataExport.classes.length; i ++){
