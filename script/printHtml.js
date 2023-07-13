@@ -36,7 +36,7 @@ export default class PrintSheetHtml extends FormApplication {
         let  outText = '<!DOCTYPE html>'
         outText += '<html lang="fr">';
         outText += '<head>';
-    
+        outText += '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">';
         outText += '</head>';
         outText += '<body>';
         
