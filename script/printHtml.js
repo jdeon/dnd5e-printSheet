@@ -11,16 +11,16 @@ export default class PrintSheetHtml extends FormApplication {
     
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.template = "modules/dnd5e-printSheet/template/htmlExportTemplate.html";
         options.resizable = true;
         options.title = "Export";
         return options;
     }
 
     
-    static async convertdataToHtmlText(dataExport) {
-        let exportFrom = new PrintSheetHtml(dataExport, this.defaultOptions);
-        let htmlForm = await exportFrom._renderInner(dataExport, this.defaultOptions);
+    static async convertdataToHtmlText(dataExport, template) {
+        let defaultOptions = {...this.defaultOptions, template}
+        let exportFrom = new PrintSheetHtml(dataExport, defaultOptions);
+        let htmlForm = await exportFrom._renderInner(dataExport, defaultOptions);
         let result = PrintSheetHtml.generationPrefixSourceHtml();
         
         for(var i = 0 ; i < htmlForm.length ; i++){
@@ -29,7 +29,6 @@ export default class PrintSheetHtml extends FormApplication {
         
         result += '</body>';
         result += '</html>';
-        
         return result;
     }
     
@@ -37,36 +36,7 @@ export default class PrintSheetHtml extends FormApplication {
         let  outText = '<!DOCTYPE html>'
         outText += '<html lang="fr">';
         outText += '<head>';
-        
-        outText += '<style>';
-        outText += '                                \
-        td,                                         \
-        th {                                        \
-            border: 1px solid rgb(190, 190, 190);   \
-            padding: 10px;                          \
-        }                                           \
-        td {                                        \
-            text-align: center;                     \
-        }                                           \
-        tr:nth-child(even) {                        \
-            background-color: #eee;                 \
-        }                                           \
-        th[scope="col"] {                           \
-            background-color: #696969;              \
-            color: #fff;                            \
-        }                                           \
-        th[scope="row"] {                           \
-            background-color: #d7d9f2;              \
-        }                                           \
-        table {                                     \
-            border-collapse: collapse;              \
-            border: 2px solid rgb(200, 200, 200);   \
-            letter-spacing: 1px;                    \
-            font-family: sans-serif;                \
-            font-size: .8rem;                       \
-        }';
-        outText += '</style>';
-        
+        outText += '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">';
         outText += '</head>';
         outText += '<body>';
         

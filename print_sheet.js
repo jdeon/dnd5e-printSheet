@@ -30,18 +30,26 @@ async function printActorSheet(dataSheet) {
     
     let textExport;
     let exportTyp;
+    let filename;
     let typExport = game.settings.get("dnd5e-printSheet", "typeExport");
     
     if(typExport === 1){
-        textExport = await PrintSheetHtml.convertdataToHtmlText(dataToExport);
+        textExport = await PrintSheetHtml.convertdataToHtmlText(dataToExport, 'modules/dnd5e-printSheet/template/htmlPlainExportTemplate.html');
         exportTyp = 'html';
+        filename = `fvtt-${dataToExport.pcName.replace(/\s/g, "_")}(plain).` + exportTyp;
     } else if (typExport === 2){
         textExport =  PrintSheetCsv.convertdataToCsvText(dataToExport);
         exportTyp = 'csv';
+        filename = `fvtt-${dataToExport.pcName.replace(/\s/g, "_")}.` + exportTyp;
+    } else if (typExport === 3){
+        textExport =  await PrintSheetHtml.convertdataToHtmlText(dataToExport, 'modules/dnd5e-printSheet/template/htmlAccordionExportTemplate.html');
+        exportTyp = 'html';
+        filename = `fvtt-${dataToExport.pcName.replace(/\s/g, "_")}(accordion).` + exportTyp;
     }
     
-    const filename = `fvtt-${dataToExport.pcName.replace(/\s/g, "_")}.` + exportTyp;
-    saveDataToFile(textExport, "text/"+exportTyp, filename); //; charset=UTF-8
+    if(filename){
+        saveDataToFile(textExport, "text/"+exportTyp, filename); //+"; charset=UTF-8"
+    }
 }
 
 
@@ -64,7 +72,7 @@ Hooks.once('init', async function () {
     // Register custom module settings
     //registerSettings();
     
-    return loadTemplates(['modules/dnd5e-printSheet/template/htmlExportTemplate.html']);
+    return loadTemplates(['modules/dnd5e-printSheet/template/htmlExportTemplate.html', 'modules/dnd5e-printSheet/template/htmlAccordionExportTemplate']);
     
 });
 
@@ -78,8 +86,9 @@ Hooks.once('ready', () => {
         type: Number,
         choices: {
             0 : "",
-            1 : "Html",
-            2 : "CSV"
+            1 : "Plain Html",
+            2 : "CSV",
+            3 : "Accordion Html (Mobile friendly)",
         },
         default: 0
 	});
