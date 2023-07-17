@@ -1,15 +1,17 @@
 # Print sheet for D&D5e
 
-Allows the export of player character sheet in csv an in html. 
+The module adds a button at the top of player character sheet. This allows you to export the data of the character in a readable document. The document can be in html or in CSV, you can choose the export type in the module settings.
 
-The choice of the export type is display on the module settings
+## Export Types
+
+- html (plain): better to print it on paper or in pdf. All fields are visible, and they are not interactive.
+- csv: good to see data or to print.
+- html (accordion): better way to keep it on mobile. It gives a clear document where field is clickable to give more details. 
 
 
 ### Compatibility:
 - Tested with FVTT v9 - 11.
 
-### Known Issues:
-- Special caractère on CSV export.
 
 ### Installation Instructions
 
@@ -18,3 +20,4 @@ To install a module, follow these instructions:
 1. Start FVTT and browse to the Game Modules tab in the Configuration and Setup menu
 2. Select the Install Module button and enter the following URL: https://github.com/jdeon/dnd5e-printSheet/releases/latest/download/module.json
 3. Click Install and wait for installation to complete 
+4. On your world, choose the export type you want in the settings
