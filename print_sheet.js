@@ -5,7 +5,7 @@ import PrintSheetHtml from "./script/printHtml.js";
 class PrintActorSheetModule {
     
     static onRenderActorSheet(obj, html, data) {      
-        if (data.isCharacter && game.settings.get("dnd5e-printSheet", "typeExport") > 0) {
+        if (data.isCharacter && game.settings.get("dnd5e-print-sheet", "typeExport") > 0) {
             let element = html.find(".window-header .window-title")
             PrintActorSheetModule.addButton(element, obj.object);
         }
@@ -31,10 +31,10 @@ async function printActorSheet(dataSheet) {
     let textExport;
     let exportTyp;
     let filename;
-    let typExport = game.settings.get("dnd5e-printSheet", "typeExport");
+    let typExport = game.settings.get("dnd5e-print-sheet", "typeExport");
     
     if(typExport === 1){
-        textExport = await PrintSheetHtml.convertdataToHtmlText(dataToExport, 'modules/dnd5e-printSheet/template/htmlPlainExportTemplate.html');
+        textExport = await PrintSheetHtml.convertdataToHtmlText(dataToExport, 'modules/dnd5e-print-sheet/template/htmlPlainExportTemplate.html');
         exportTyp = 'html';
         filename = `fvtt-${dataToExport.pcName.replace(/\s/g, "_")}(plain).` + exportTyp;
     } else if (typExport === 2){
@@ -42,7 +42,7 @@ async function printActorSheet(dataSheet) {
         exportTyp = 'csv';
         filename = `fvtt-${dataToExport.pcName.replace(/\s/g, "_")}.` + exportTyp;
     } else if (typExport === 3){
-        textExport =  await PrintSheetHtml.convertdataToHtmlText(dataToExport, 'modules/dnd5e-printSheet/template/htmlAccordionExportTemplate.html');
+        textExport =  await PrintSheetHtml.convertdataToHtmlText(dataToExport, 'modules/dnd5e-print-sheet/template/htmlAccordionExportTemplate.html');
         exportTyp = 'html';
         filename = `fvtt-${dataToExport.pcName.replace(/\s/g, "_")}(accordion).` + exportTyp;
     }
@@ -67,17 +67,17 @@ function customSaveDataToFile(data, type, filename) {
 }
 
 Hooks.once('init', async function () {
-    console.log('dnd5e-printSheet | Initializing dnd5e-printSheet');
+    console.log('dnd5e-print-sheet | Initializing dnd5e-print-sheet');
     // Assign custom classes and constants here
     // Register custom module settings
     //registerSettings();
     
-    return loadTemplates(['modules/dnd5e-printSheet/template/htmlExportTemplate.html', 'modules/dnd5e-printSheet/template/htmlAccordionExportTemplate']);
+    return loadTemplates(['modules/dnd5e-print-sheet/template/htmlPlainExportTemplate.html', 'modules/dnd5e-print-sheet/template/htmlAccordionExportTemplate.html']);
     
 });
 
 Hooks.once('ready', () => {
-    game.settings.register("dnd5e-printSheet", "typeExport", {
+    game.settings.register("dnd5e-print-sheet", "typeExport", {
 		name: game.i18n.localize("DND5E-PRINT-SHEET.Settings.ExportType.Name"),
 		hint: game.i18n.localize("DND5E-PRINT-SHEET.Settings.ExportType.Hint"),
 		scope: "world",

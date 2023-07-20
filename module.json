@@ -1,10 +1,10 @@
 {
   "id": "dnd5e-print-sheet",
   "title": "Print sheet for D&D5e",
-  "description": "Local module to print PC sheets",
-  "version": "2.3.1",
+  "description": "Module to print PC sheets",
+  "version": "2.3.2",
   "compatibility": {
-    "minimum": "10.274",
+    "minimum": "9",
     "verified": "11.302"
   },
   "authors": [
