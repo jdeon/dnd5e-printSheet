@@ -125,6 +125,30 @@
 
     <div class="accordion">
         <button class="accordion-header">
+            <h2>{{ localize 'DND5E.Skills' }}</h2>
+        </button>
+        <div class="accordion-details">
+            <table>
+                <tr>  
+                    <th>{{ localize 'DND5E-PRINT-SHEET.Name' }}</th>  
+                    <th>{{ localize 'DND5E.Modifier' }}</th>  
+                    <th>{{ localize 'DND5E.Passive' }}</th>  
+                </tr>
+                {{#each skills}}                
+                <tr>  
+                    <td>{{this.name.label}}</td>  
+                    <td>{{this.mod}}</td>  
+                    <td>{{this.passive}}</td>  
+                </tr> 
+                {{/each}}
+            </table>  
+        </div>
+    </div>
+    
+    <br/>
+
+    <div class="accordion">
+        <button class="accordion-header">
             <h2>{{ localize 'DND5E.Biography' }}</h2>
         </button>
         <div class="accordion-details">
