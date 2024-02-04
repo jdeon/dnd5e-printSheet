@@ -16,7 +16,8 @@ class PrintActorSheetModule {
         if (element.length != 1) {
             return;
         }
-        let button = $(`<a class="popout" style><i class="fas fa-file-export fa-fw"></i>${game.i18n.localize("DND5E-PRINT-SHEET.PrintSheet")}</a>`);
+        let button = $(`<a class="header-button control print-sheet" data-tooltip="${game.i18n.localize("DND5E-PRINT-SHEET.PrintSheet")}" aria-label="${game.i18n.localize("DND5E-PRINT-SHEET.PrintSheet")}"><i class="fas fa-file-export fa-fw"></i></a>`);
+        
         button.on('click', (event) => printActorSheet(dataObj));
         element.after(button);
     }
