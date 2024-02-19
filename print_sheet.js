@@ -121,7 +121,7 @@ Hooks.once('ready', () => {
         config: true,
         type: Number,
         choices: {
-            0 : "Ask each time",
+            0 : game.i18n.localize("DND5E-PRINT-SHEET.Settings.ExportType.AskEachTime"),
             1 : "Plain Html",
             2 : "CSV",
             3 : "Accordion Html (Mobile friendly)",
