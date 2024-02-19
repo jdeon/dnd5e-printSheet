@@ -5,7 +5,7 @@ import PrintSheetHtml from "./script/printHtml.js";
 class PrintActorSheetModule {
     
     static onRenderActorSheet(obj, html, data) {      
-        if (data.isCharacter && game.settings.get("dnd5e-print-sheet", "typeExport") > 0) {
+        if (data.isCharacter) {
             let element = html.find(".window-header .window-title")
             PrintActorSheetModule.addButton(element, obj.object);
         }
@@ -18,13 +18,48 @@ class PrintActorSheetModule {
         }
         let button = $(`<a class="header-button control print-sheet" data-tooltip="${game.i18n.localize("DND5E-PRINT-SHEET.PrintSheet")}" aria-label="${game.i18n.localize("DND5E-PRINT-SHEET.PrintSheet")}"><i class="fas fa-file-export fa-fw"></i></a>`);
         
-        button.on('click', (event) => printActorSheet(dataObj));
+        button.on('click', () => PrintActorSheetModule.onButtonClick(dataObj));
         element.after(button);
+    }
+
+    static onButtonClick(dataSheet){
+        let typeExport = game.settings.get("dnd5e-print-sheet", "typeExport");
+
+        if(typeExport){
+            printActorSheet(dataSheet, typeExport) 
+        } else {
+            new Dialog({
+                title: `Type of the export`,
+                content: `
+                  <form>
+                    <div class="form-group">
+                      <label>Type of the export</label>
+                      <select name="typeExport" id="typeExport">
+                        <option value="1">Plain Html</option>
+                        <option value="2">CSV</option>
+                        <option value="3">Accordion Html (Mobile friendly)</option>
+                      </select>
+                    </div>
+                  </form>
+                  `,
+                buttons: {
+                    export: {
+                        icon: "<i class='fas fa-check'></i>",
+                        label: `Export`,
+                        callback: (html) => printActorSheet(dataSheet, Number(html.find('#typeExport')[0].value))
+                    },
+                    cancel: {
+                        icon: "<i class='fas fa-times'></i>",
+                        label: `Cancel Changes`
+                    },
+                },
+                default: "yes",
+              }).render(true);
+        }
     }
 }
 
-
-async function printActorSheet(dataSheet) {
+async function printActorSheet(dataSheet, typExport) {
     // Prepare export data
     const dataDndSheet = dataSheet.clone(); 
     const dataToExport = DataMapper.mapDndDataToDataExport(dataDndSheet);
@@ -32,7 +67,7 @@ async function printActorSheet(dataSheet) {
     let textExport;
     let exportTyp;
     let filename;
-    let typExport = game.settings.get("dnd5e-print-sheet", "typeExport");
+    
     
     if(typExport === 1){
         textExport = await PrintSheetHtml.convertdataToHtmlText(dataToExport, 'modules/dnd5e-print-sheet/template/htmlPlainExportTemplate.html');
@@ -86,7 +121,7 @@ Hooks.once('ready', () => {
         config: true,
         type: Number,
         choices: {
-            0 : "",
+            0 : game.i18n.localize("DND5E-PRINT-SHEET.Settings.ExportType.AskEachTime"),
             1 : "Plain Html",
             2 : "CSV",
             3 : "Accordion Html (Mobile friendly)",
