@@ -203,13 +203,22 @@ export default class DataMapper {
         exportSpellData.description = dndSpellData.system.description.value;
         exportSpellData.level = dndSpellData.system.level;
         exportSpellData.activation = {cost : dndSpellData.system.activation.cost, type : dndSpellData.system.activation.type};
-        exportSpellData.components = (dndSpellData.system.components.vocal ? 'V,' : '') 
-            + (dndSpellData.system.components.somatic ? 'S,' : '') 
-            + (dndSpellData.system.components.material ? 'M (' + dndSpellData.system.materials.value + '),' : '') 
-            + (dndSpellData.system.components.ritual ? 'R,' : '') 
-            + (dndSpellData.system.components.concentration ? 'C,' : '')
+        
+        const spellComponents = dndSpellData.system.properties.map((property) => {
+            if(!DataMapper._spellComponents.includes(property)) return undefined
+
+            if("material" === property){
+                return `${dnd5e.config.itemProperties.material.abbreviation} (${dndSpellData.system.materials.value})`
+            } else {
+                return dnd5e.config.itemProperties[property]?.abbreviation
+            }
+        }).filter((value) => value != undefined)
+        
+        
+        exportSpellData.components = Array.from(spellComponents).toString()
         
         return exportSpellData;
     }
-    
+
+    static _spellComponents = ["vocal","somatic", "material", "ritual", "concentration"]
 }
