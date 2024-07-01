@@ -2,7 +2,7 @@
   "id": "dnd5e-print-sheet",
   "title": "Print sheet for D&D5e",
   "description": "Module to print PC sheets",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "compatibility": {
     "minimum": "9",
     "verified": "11.315"
