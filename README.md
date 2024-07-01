@@ -4,9 +4,9 @@ The module adds a button at the top of player character sheet. This allows you t
 
 ## Export Types
 
-- [html (plain)](./doc/fvtt-Akra_(Dragonborn_Cleric)(plain).html): better to print it on paper or in pdf. All fields are visible, and they are not interactive.
-- [csv](./doc/fvtt-Akra_(Dragonborn_Cleric).csv): good to see data or to print.
-- [html (accordion)](./doc/fvtt-Akra_(Dragonborn_Cleric)(plain).html): better way to keep it on mobile. It gives a clear document where field is clickable to give more details. 
+- [html (plain)](./doc/fvtt-Akra_(Dragonborn_Cleric).plain.pdf): better to print it on paper or in pdf. All fields are visible, and they are not interactive.
+- [csv](./doc/fvtt-Akra_(Dragonborn_Cleric).csv.pdf): good to see data or to print.
+- [html (accordion)](./doc/fvtt-Akra_(Dragonborn_Cleric).accordion.pdf): better way to keep it on mobile. It gives a clear document where field is clickable to give more details. 
 
 
 ### Compatibility:
