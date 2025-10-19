@@ -18,12 +18,12 @@ export default class PrintSheetCsv {
             outText += classe.name + ' (' + classe.level + ') - ' + classe.subclass + '    ';
         }
         outText += this.defaultOptions.separatorChar.repeat(10)
-        outText+= PrintSheetCsv.createSimpleField(game.i18n.localize("DND5E.Race"),  dataExport.race);
-        outText+= PrintSheetCsv.createSimpleField(game.i18n.localize("DND5E.ExperiencePointsAbbr"),  dataExport.xp.value + '/' + dataExport.xp.nextLvl);
         outText += this.defaultOptions.returnLineChar;
 
         outText += PrintSheetCsv.createSimpleField(game.i18n.localize("DND5E.Alignment"), dataExport.alignment);
+        outText += PrintSheetCsv.createSimpleField(game.i18n.localize("TYPES.Item.raceLegacy"), dataExport.race);
         outText += PrintSheetCsv.createSimpleField(game.i18n.localize("DND5E.Background"), dataExport.background);
+        outText += PrintSheetCsv.createSimpleField(game.i18n.localize("DND5E.ExperiencePoints.Abbreviation"), dataExport.xp.value + '/' + dataExport.xp.nextLvl);
         outText += this.defaultOptions.separatorChar.repeat(2)
         outText += this.defaultOptions.returnLineChar;
 

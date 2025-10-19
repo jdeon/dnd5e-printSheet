@@ -22,13 +22,12 @@
                     </td>
                     <td>
                         <span>{{ localize 'DND5E-PRINT-SHEET.PlayerName' }} :</span>
-                        <span>{{ localize 'DND5E.Race' }} :</span>  
-                        <span>{{ localize 'DND5E.ExperiencePointsAbbr' }} :</span>  
                         <br>
                     </td>
                 </tr>
                 <tr>
                     <td>
+                        <span>{{ localize 'TYPES.Item.raceLegacy' }} :</span>
                         <span>{{race}}</span>
                     </td>
                     <td>
@@ -36,6 +35,7 @@
                         <span>{{alignment}}</span>
                     </td>
                     <td>
+                        <span>{{ localize 'DND5E.ExperiencePoints.Abbreviation' }} :</span>
                         <span>{{xp.value}}/{{xp.nextLvl}}</span>
                     </td>
                 </tr>
@@ -209,8 +209,8 @@
             </table>
         </div>
 
-            <h2>{{ localize 'ITEM.TypeSpellPl' }}</h2>  
         <div style="float:left;width:100%">
+            <h2>{{ localize 'TYPES.Item.spellPl' }}</h2>
             <table>
                 <tr>
                     <th>{{ localize 'DND5E-PRINT-SHEET.Name' }}</th>
