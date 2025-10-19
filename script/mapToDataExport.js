@@ -4,8 +4,8 @@ export default class DataMapper {
         let dataExport = {};
 
         let dataItem = DataMapper.sortItemByType(dataDnd.items);
-        dataExport.pcName = dataDnd.name;
 
+        dataExport.pcName = dataDnd.actor.name;
         dataExport.alignment = dataDnd.system.details.alignment;
         dataExport.race = dataDnd.system.details.race;
         dataExport.background = dataDnd.system.details.background.name;
