@@ -131,4 +131,4 @@ Hooks.once('ready', () => {
 });
 
 
-Hooks.on('renderActorSheet', PrintActorSheetModule.onRenderActorSheet);
+Hooks.on('renderCharacterActorSheet', PrintActorSheetModule.onRenderActorSheet);
