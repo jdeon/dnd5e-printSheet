@@ -52,15 +52,7 @@ export default class DataMapper {
             dataAbilitieExport.name = game.dnd5e.config.abilities[key].label;
             dataAbilitieExport.value = abilitie.value;
             dataAbilitieExport.mod = abilitie.mod > 0 ? '+' + abilitie.mod : abilitie.mod;
-            dataAbilitieExport.save = abilitie.save;
-
-            /*
-            proficient: 0
-            prof: 0
-            saveBonus: 0
-            checkBonus: 0
-            dc: 11
-            */
+            dataAbilitieExport.save = abilitie.save.value;
 
             dataAbilitiesExport.push(dataAbilitieExport);
         }
