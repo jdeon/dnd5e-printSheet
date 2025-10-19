@@ -3,21 +3,21 @@ import PrintSheetCsv from "./script/printCsv.js";
 import PrintSheetHtml from "./script/printHtml.js";
 
 class PrintActorSheetModule {
-    
-    static onRenderActorSheet(obj, html, data) {      
+
+    static onRenderActorSheet(obj, html, data) {
         if (data.isCharacter) {
-            let element = html.find(".window-header .window-title")
-            PrintActorSheetModule.addButton(element, obj.object);
+            let element = $(html).find(".window-header .fa-ellipsis-vertical")
+            PrintActorSheetModule.addButton(element, data);
         }
     }
-    
+
     static addButton(element, dataObj) {
         // Can't find it?
         if (element.length != 1) {
             return;
         }
-        let button = $(`<a class="header-button control print-sheet" data-tooltip="${game.i18n.localize("DND5E-PRINT-SHEET.PrintSheet")}" aria-label="${game.i18n.localize("DND5E-PRINT-SHEET.PrintSheet")}"><i class="fas fa-file-export fa-fw"></i></a>`);
-        
+        let button = $(`<button class="header-control icon fa-solid fa-file-export print-sheet" data-tooltip="${game.i18n.localize("DND5E-PRINT-SHEET.PrintSheet")}" aria-label="${game.i18n.localize("DND5E-PRINT-SHEET.PrintSheet")}"/>`);
+
         button.on('click', () => PrintActorSheetModule.onButtonClick(dataObj));
         element.after(button);
     }
@@ -61,9 +61,9 @@ class PrintActorSheetModule {
 
 async function printActorSheet(dataSheet, typExport) {
     // Prepare export data
-    const dataDndSheet = dataSheet.clone(); 
-    const dataToExport = DataMapper.mapDndDataToDataExport(dataDndSheet);
-    
+    //const dataDndSheet = dataSheet.clone();
+    const dataToExport = DataMapper.mapDndDataToDataExport(dataSheet);
+
     let textExport;
     let exportTyp;
     let filename;
