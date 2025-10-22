@@ -95,7 +95,7 @@ export default class PrintSheetCsv {
         for (var i = 0; i < dataExport.spells.length; i++) {
             let spell = dataExport.spells[i];
             outText += spell.name + ' (' + game.i18n.localize('DND5E.AbbreviationLevel') + spell.level + ')' + this.defaultOptions.separatorChar;
-            outText += spell.activation.cost + ' ' + spell.activation.type + this.defaultOptions.separatorChar;
+            outText += (spell.activation.cost ?? '') + ' ' + spell.activation.type + this.defaultOptions.separatorChar;
             outText += "\"" + spell.components + "\"" + this.defaultOptions.separatorChar.repeat(5);
             outText += "\"" + this.deleteSpecialChar(spell.description) + "\"" + this.defaultOptions.separatorChar.repeat(3) + this.defaultOptions.returnLineChar;
         }
