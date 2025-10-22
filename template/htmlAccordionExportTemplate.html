@@ -1,94 +1,94 @@
 <div id=globalContainner style="float:left;width:100%">
-    <h1> {{pcName}}</h1> 
-
-    <table>  
-        <tr>  
-            <td>
-                <span>{{ localize 'DND5E.ClassName' }} :</span> 
-                <span>{{#each classes}}
-                    <br>{{this.name}} ({{this.level}}) - {{this.subclass}}
-                {{/each}}</span>
-            </td> 
-        </tr>
-        <tr>  
-            <td>  
-                <span>{{ localize 'DND5E.ExperiencePointsAbbr' }} :</span>  
-                <span>{{xp.value}}/{{xp.nextLvl}}</span>  
-            </td>  
-        </tr>  
-        <tr>   
-            <td>  
-                <span>{{ localize 'DND5E.Background' }} :</span>  
-                <br>
-                <span>{{background}}</span>  
-            </td>  
-        </tr>  
-        <tr>  
-            <td>  
-                <span>{{ localize 'DND5E.Race' }} :</span>  
-                <span>{{race}}</span>  
-            </td>  
-        </tr>  
-        <tr>  
-            <td>  
-                <span>{{ localize 'DND5E.Alignment' }} :</span>  
-                <span>{{alignment}}</span>  
-            </td>  
-        </tr>  
-    </table>
-
-    <br/>
+    <h1> {{pcName}}</h1>
 
     <table>
-        <tr>  
+        <tr>
             <td>
-                <span>{{ localize 'DND5E.HP' }} :</span> 
-                <span>{{hp.actual}}/{{hp.max}}</span>
-            </td> 
+                <span>{{ localize 'DND5E.ClassName' }} :</span>
+                <span>{{#each classes}}
+                    <br>{{this.name}} ({{this.level}}) - {{this.subclass}}
+                    {{/each}}</span>
+            </td>
         </tr>
-        <tr>  
+        <tr>
             <td>
-                <span>{{ localize 'DND5E.HP' }} :</span> 
-                <span>{{hp.actual}}/{{hp.max}}</span>
-            </td> 
+                <span>{{ localize 'DND5E.ExperiencePoints.Abbreviation' }} :</span>
+                <span>{{xp.value}}/{{xp.nextLvl}}</span>
+            </td>
         </tr>
-        <tr>  
+        <tr>
             <td>
-                <span>{{ localize 'DND5E.AC' }} :</span> 
+                <span>{{ localize 'DND5E.Background' }} :</span>
+                <br>
+                <span>{{background}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>{{ localize 'TYPES.Item.raceLegacy' }} :</span>
+                <span>{{race}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>{{ localize 'DND5E.Alignment' }} :</span>
+                <span>{{alignment}}</span>
+            </td>
+        </tr>
+    </table>
+
+    <br />
+
+    <table>
+        <tr>
+            <td>
+                <span>{{ localize 'DND5E.HP' }} :</span>
+                <span>{{hp.actual}}/{{hp.max}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>{{ localize 'DND5E.HP' }} :</span>
+                <span>{{hp.actual}}/{{hp.max}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>{{ localize 'DND5E.AC' }} :</span>
                 <span>{{ac}}</span>
-            </td> 
+            </td>
         </tr>
-        <tr>  
+        <tr>
             <td class="nested-table">
                 <table>
                     <tr>
                         <td style="width: 25%;">
-                            <span>{{ localize 'DND5E.Speed' }} :</span> 
+                            <span>{{ localize 'DND5E.Speed' }} :</span>
                         </td>
-                        {{#each speeds}} 
-                        <td>  
+                        {{#each speeds}}
+                        <td>
                             <span>
-                                {{this.name}}:{{this.value}}{{this.units}}; 
-                            </span>  
-                        </td> 
+                                {{this.name}}:{{this.value}}{{this.units}};
+                            </span>
+                        </td>
                         {{/each}}
                     </tr>
                 </table>
             </td>
         </tr>
-        <tr>  
+        <tr>
             <td class="nested-table">
                 <table>
                     <tr>
                         <td style="width: 25%;">
-                            <span>{{ localize 'DND5E.Senses' }} :</span> 
+                            <span>{{ localize 'DND5E.Senses' }} :</span>
                         </td>
-                        {{#each senses}} 
-                        <td>  
+                        {{#each senses}}
+                        <td>
                             <span>
-                                {{this.name}}:{{this.value}}{{this.units}}; 
-                            </span>  
-                        </td> 
+                                {{this.name}}:{{this.value}}{{this.units}};
+                            </span>
+                        </td>
                         {{/each}}
                     </tr>
                 </table>
@@ -96,7 +96,7 @@
         </tr>
     </table>
 
-    <br/>
+    <br />
 
     <div class="accordion">
         <button class="accordion-header">
@@ -105,23 +105,23 @@
         <div class="accordion-details">
             <table>
                 {{#each abilities}}
-                <tr>  
-                    <td>  
-                        <span>{{this.name}}</span> 
-                    </td>    
-                    <td>  
-                        <span>{{this.value}} ({{this.mod}})</span> 
-                    </td>  
-                    <td>  
-                        <span>{{ localize 'DND5E-PRINT-SHEET.SaveRollAbbr' }} : {{this.save}}</span> 
-                    </td>  
-                </tr> 
+                <tr>
+                    <td>
+                        <span>{{this.name}}</span>
+                    </td>
+                    <td>
+                        <span>{{this.value}} ({{this.mod}})</span>
+                    </td>
+                    <td>
+                        <span>{{ localize 'DND5E-PRINT-SHEET.SaveRollAbbr' }} : {{this.save}}</span>
+                    </td>
+                </tr>
                 {{/each}}
-            </table>  
+            </table>
         </div>
     </div>
 
-    <br/>
+    <br />
 
     <div class="accordion">
         <button class="accordion-header">
@@ -129,23 +129,23 @@
         </button>
         <div class="accordion-details">
             <table>
-                <tr>  
-                    <th>{{ localize 'DND5E-PRINT-SHEET.Name' }}</th>  
-                    <th>{{ localize 'DND5E.Modifier' }}</th>  
-                    <th>{{ localize 'DND5E.Passive' }}</th>  
+                <tr>
+                    <th>{{ localize 'DND5E-PRINT-SHEET.Name' }}</th>
+                    <th>{{ localize 'DND5E.Modifier' }}</th>
+                    <th>{{ localize 'DND5E.Passive' }}</th>
                 </tr>
-                {{#each skills}}                
-                <tr>  
-                    <td>{{this.name.label}}</td>  
-                    <td>{{this.mod}}</td>  
-                    <td>{{this.passive}}</td>  
-                </tr> 
+                {{#each skills}}
+                <tr>
+                    <td>{{this.name.label}}</td>
+                    <td>{{this.mod}}</td>
+                    <td>{{this.passive}}</td>
+                </tr>
                 {{/each}}
-            </table>  
+            </table>
         </div>
     </div>
-    
-    <br/>
+
+    <br />
 
     <div class="accordion">
         <button class="accordion-header">
@@ -153,37 +153,37 @@
         </button>
         <div class="accordion-details">
             <table>
-                <tr>  
-                    <td> {{ localize 'DND5E.Biography' }}</td> 
-                    <td> 
-                        <span>  
+                <tr>
+                    <td> {{ localize 'DND5E.Biography' }}</td>
+                    <td>
+                        <span>
                             {{{biography}}}
-                        </span>  
-                    </td>  
+                        </span>
+                    </td>
                 </tr>
 
-                <tr>  
-                    <td>{{ localize 'DND5E.Appearance' }}</td>  
-                    <td>  
-                        <span> 
+                <tr>
+                    <td>{{ localize 'DND5E.Appearance' }}</td>
+                    <td>
+                        <span>
                             {{{appearance}}}
-                        </span>  
-                    </td>  
-                </tr>  
-                
+                        </span>
+                    </td>
+                </tr>
+
                 {{#each personality}}
                 <tr>
-                    <td> {{this.name}}</td>  
-                    <td>  
-                        <span>{{this.description}}</span>  
-                    </td>  
+                    <td> {{this.name}}</td>
+                    <td>
+                        <span>{{this.description}}</span>
+                    </td>
                 </tr>
                 {{/each}}
-            </table>  
+            </table>
         </div>
     </div>
 
-    <br/>
+    <br />
 
     <div class="accordion">
         <button class="accordion-header">
@@ -192,8 +192,8 @@
         <div class="accordion-details parent-accordion">
             <table>
                 {{#each feats}}
-                <tr>  
-                    <td class="nested-table">  
+                <tr>
+                    <td class="nested-table">
                         <div class="accordion">
                             <button class="accordion-header">
                                 <h3>{{this.name}}</h3>
@@ -202,24 +202,24 @@
                                 <span>{{{this.description}}}</span>
                             </div>
                         </div>
-                    </td>  
-                </tr> 
+                    </td>
+                </tr>
                 {{/each}}
-            </table>  
+            </table>
         </div>
     </div>
 
-    <br/>
+    <br />
 
     <div class="accordion">
         <button class="accordion-header">
-            <h2>{{ localize 'ITEM.TypeSpellPl' }}</h2>
+            <h2>{{ localize 'TYPES.Item.spellPl' }}</h2>
         </button>
         <div class="accordion-details parent-accordion">
             <table>
                 {{#each spells}}
-                <tr>  
-                    <td class="nested-table">  
+                <tr>
+                    <td class="nested-table">
                         <div class="accordion">
                             <button class="accordion-header">
                                 <h3>{{this.name}}</h3>
@@ -236,10 +236,11 @@
                                     <tr>
                                         <td>
                                             <span>
-                                                {{ localize 'DND5E.ItemActivation' }} : {{this.activation.cost}} {{this.activation.type}}
+                                                {{ localize 'DND5E.ItemActivation' }} : {{this.activation.cost}}
+                                                {{this.activation.type}}
                                             </span>
                                         </td>
-                                    </tr>                                    
+                                    </tr>
                                     <tr>
                                         <td>
                                             <span>
@@ -254,43 +255,43 @@
                                             </span>
                                         </td>
                                     </tr>
-                                </table> 
+                                </table>
                             </div>
                         </div>
-                    </td>  
-                </tr> 
+                    </td>
+                </tr>
                 {{/each}}
-            </table>  
+            </table>
         </div>
     </div>
 
-    <br/>
+    <br />
 
     <div class="accordion">
         <button class="accordion-header">
             <h2>{{ localize 'DND5E.Inventory' }}</h2>
         </button>
         <div class="accordion-details parent-accordion">
-            <table>  
-                <tr>  
-                    <th>{{ localize 'DND5E.CurrencyAbbrPP' }}</th>  
-                    <th>{{ localize 'DND5E.CurrencyAbbrGP' }}</th>  
-                    <th>{{ localize 'DND5E.CurrencyAbbrEP' }}</th>  
-                    <th>{{ localize 'DND5E.CurrencyAbbrSP' }}</th>  
-                    <th>{{ localize 'DND5E.CurrencyAbbrCP' }}</th>  
-                </tr>  
-                <tr>  
-                    <td>{{money.pp}}</td>  
-                    <td>{{money.gp}}</td>  
-                    <td>{{money.ep}}</td>  
-                    <td>{{money.sp}}</td>  
-                    <td>{{money.cp}}</td>  
-                </tr>  
-            </table>  
+            <table>
+                <tr>
+                    <th>{{ localize 'DND5E.CurrencyAbbrPP' }}</th>
+                    <th>{{ localize 'DND5E.CurrencyAbbrGP' }}</th>
+                    <th>{{ localize 'DND5E.CurrencyAbbrEP' }}</th>
+                    <th>{{ localize 'DND5E.CurrencyAbbrSP' }}</th>
+                    <th>{{ localize 'DND5E.CurrencyAbbrCP' }}</th>
+                </tr>
+                <tr>
+                    <td>{{money.pp}}</td>
+                    <td>{{money.gp}}</td>
+                    <td>{{money.ep}}</td>
+                    <td>{{money.sp}}</td>
+                    <td>{{money.cp}}</td>
+                </tr>
+            </table>
             <table>
                 {{#each objects}}
-                <tr>  
-                    <td class="nested-table">  
+                <tr>
+                    <td class="nested-table">
                         <div class="accordion">
                             <button class="accordion-header">
                                 <h3>{{this.name}} ({{this.quantity}})</h3>
@@ -301,10 +302,10 @@
                                 </span>
                             </div>
                         </div>
-                    </td>  
-                </tr> 
+                    </td>
+                </tr>
                 {{/each}}
-            </table>  
+            </table>
         </div>
     </div>
 
@@ -314,16 +315,16 @@
     <script>
         var coll = document.getElementsByClassName("accordion-header");
         var i;
-    
+
         for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            content.classList.toggle("active")
-        });
+            coll[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                content.classList.toggle("active")
+            });
         }
     </script>
-    
+
     <style>
         h1 {
             font-size: 6rem
@@ -337,14 +338,16 @@
             font-size: 3rem
         }
 
-        h1, h2, h3 {
+        h1,
+        h2,
+        h3 {
             text-align: center
         }
 
         .accordion {
             border: 2px solid black;
         }
-    
+
         .accordion-header {
             background-color: #eee;
             color: #444;
@@ -356,18 +359,19 @@
             outline: none;
             transition: 0.4s;
         }
-    
-        .active, .accordion-header:hover {
-            background-color: #ccc; 
+
+        .active,
+        .accordion-header:hover {
+            background-color: #ccc;
         }
-    
+
         .accordion-details {
             max-height: 0px;
             transition: max-height 0.3s ease-in-out;
             background-color: white;
             overflow: hidden;
         }
-    
+
         .active.accordion-details {
             max-height: 1000rem;
         }
@@ -375,34 +379,40 @@
         .active.accordion-details.parent-accordion {
             max-height: 10000rem;
         }
-    
-    
-        td,  th {                                        
-            border: 1px solid rgb(190, 190, 190);   
-            padding: 10px;                          
-        }                                           
-        td {                                        
-            text-align: center;                     
-        }                                           
-        tr:nth-child(even) {                        
-            background-color: #eee;                 
-        }                                           
-        th[scope="col"] {                           
-            background-color: #696969;              
-            color: #fff;                            
-        }                                           
-        th[scope="row"] {                           
-            background-color: #d7d9f2;              
-        }                                           
-        table {                                     
-            border-collapse: collapse;              
-            border: 2px solid rgb(200, 200, 200);   
-            letter-spacing: 1px;                    
-            font-family: sans-serif;                
-            font-size: 2rem;       
-            width: 100%;                
-        } 
-    
+
+
+        td,
+        th {
+            border: 1px solid rgb(190, 190, 190);
+            padding: 10px;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background-color: #eee;
+        }
+
+        th[scope="col"] {
+            background-color: #696969;
+            color: #fff;
+        }
+
+        th[scope="row"] {
+            background-color: #d7d9f2;
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 2px solid rgb(200, 200, 200);
+            letter-spacing: 1px;
+            font-family: sans-serif;
+            font-size: 2rem;
+            width: 100%;
+        }
+
         td.nested-table {
             padding: 0px;
             border: 0;
