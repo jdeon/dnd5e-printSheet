@@ -197,6 +197,9 @@ export default class DataMapper {
         exportSpellData.description = dndSpellData.system.description.value;
         exportSpellData.level = dndSpellData.system.level;
         exportSpellData.activation = { cost: dndSpellData.system.activation.cost, type: dndSpellData.system.activation.type };
+        exportSpellData.duration = dndSpellData.system.duration;
+        exportSpellData.range = dndSpellData.system.range;
+        exportSpellData.school = dndSpellData.system.school;
 
         const spellComponents = dndSpellData.system.properties.map((property) => {
             if (!DataMapper._spellComponents.includes(property)) return undefined
