@@ -67,26 +67,8 @@
             </div>
         </div>
 
-
-    <div style="float:left;width:30%"> <!--Regrouper en liste ?-->
-        <div>
-            <table>
-                {{#each personality}}
-                <tr>
-                    <th scope="col">{{this.name}}</th>
-                </tr>
-                <tr>
-                    <td>
-                        <span>{{this.description}}</span>
-                    </td>
-                </tr>
-                {{/each}}
-            </table>
-        </div>
-
         <div>
             <div>
-                <table>
                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
                     <div style="padding: 0.5rem">
                         <table style="width: 100%;">
@@ -146,18 +128,12 @@
                 <h2>{{ localize 'DND5E.Skills' }}</h2>
                 <table style="width: 100%;">
                     <tr>
-                        <th scope="col">{{ localize 'DND5E.Biography' }}</th>
                         <th>{{ localize 'DND5E-PRINT-SHEET.Name' }}</th>
                         <th>{{ localize 'DND5E.Modifier' }}</th>
                         <th>{{ localize 'DND5E.Passive' }}</th>
                     </tr>
                     {{#each skills}}
                     <tr>
-                        <td>
-                            <span>
-                                {{{biography}}}
-                            </span>
-                        </td>
                         <td>{{this.name.label}}</td>
                         <td>{{this.mod}}</td>
                         <td>{{this.passive}}</td>
@@ -168,19 +144,51 @@
         </div>
 
         <div>
-            <div>
-                <table>
-                    <tr>
-                        <th scope="col">{{ localize 'DND5E.Appearance' }}</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span>
-                                {{{appearance}}}
-                            </span>
-                        </td>
-                    </tr>
-                </table>
+
+
+            <div style="display: grid; grid-template-columns: 1fr"> <!--TODO Regrouper en liste ?-->
+                <div style="padding: 0.5rem">
+                    <table style="width: 100%;">
+                        {{#each personality}}
+                        <tr>
+                            <th scope="col">{{this.name}}</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>{{this.description}}</span>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </table>
+                </div>
+                <div style="padding: 0.5rem">
+                    <table style="width: 100%;">
+                        <tr>
+                            <th scope="col">{{ localize 'DND5E.Biography' }}</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>
+                                    {{{biography}}}
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div style="padding: 0.5rem">
+                    <table style="width: 100%;">
+                        <tr>
+                            <th scope="col">{{ localize 'DND5E.Appearance' }}</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>
+                                    {{{appearance}}}
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
