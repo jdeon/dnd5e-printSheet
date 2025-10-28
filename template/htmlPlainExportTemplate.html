@@ -1,11 +1,11 @@
 <div id=globalContainner style="float:left;width:100%">
-    <div style="float:left;width:100%">
+    <div style="display: grid; grid-template-columns: 1fr 2fr;">
 
-        <div style="float:left;width:30%">
+        <div>
             <h1> {{pcName}}</h1>
         </div>
 
-        <div style="float:left;width:70%">
+        <div>
 
             <table>
                 <tr>
@@ -43,103 +43,30 @@
         </div>
     </div>
 
-    <div style="float:left;width:30%">
-        <div style="float:left;width:50%">
-            <table>
-                {{#each abilities}}
-                <tr>
-                    <th scope="col">{{this.name}}</th>
-                </tr>
-                <tr>
-                    <td>
-                        <span>{{this.value}}</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <span>{{this.mod}} - {{ localize 'DND5E-PRINT-SHEET.SaveRollAbbr' }} : {{this.save}}</span>
-                    </td>
-                </tr>
-                {{/each}}
+    <div style="display: grid; grid-template-columns: 1fr 2fr 2fr;">
+        <div>
+            <div style="float:left;width:50%">
+                <table>
+                    {{#each abilities}}
+                    <tr>
+                        <th scope="col">{{this.name}}</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>{{this.value}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>{{this.mod}} - {{ localize 'DND5E-PRINT-SHEET.SaveRollAbbr' }} : {{this.save}}</span>
+                        </td>
+                    </tr>
+                    {{/each}}
 
-            </table>
-        </div>
-    </div>
-
-    <div style="float:left;width:30%">
-        <div style="float:right;width:100%">
-            <div style="float:left;width:30%">
-                <table>
-                    <tr>
-                        <th scope="col">{{ localize 'DND5E.HP' }}</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span>{{hp.actual}}/{{hp.max}}</span>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div style="float:left;width:30%">
-                <table>
-                    <tr>
-                        <th scope="col">{{ localize 'DND5E.AC' }}</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span>{{ac}}</span>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div style="float:left;width:30%">
-                <table>
-                    <tr>
-                        <th scope="col">{{ localize 'DND5E.Speed' }}</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span>{{#each speeds}}
-                                {{this.name}}:{{this.value}}{{this.units}};
-                                {{/each}}</span>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div style="float:left;width:100%">
-                <table>
-                    <tr>
-                        <th scope="col">{{ localize 'DND5E.Senses' }}</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span>{{#each senses}}
-                                {{this.name}}:{{this.value}}{{this.units}};
-                                {{/each}}</span>
-                        </td>
-                    </tr>
                 </table>
             </div>
         </div>
 
-        <div style="float:right;width:100%">
-            <h2>{{ localize 'DND5E.Skills' }}</h2>
-            <table>
-                <tr>
-                    <th>{{ localize 'DND5E-PRINT-SHEET.Name' }}</th>
-                    <th>{{ localize 'DND5E.Modifier' }}</th>
-                    <th>{{ localize 'DND5E.Passive' }}</th>
-                </tr>
-                {{#each skills}}
-                <tr>
-                    <td>{{this.name.label}}</td>
-                    <td>{{this.mod}}</td>
-                    <td>{{this.passive}}</td>
-                </tr>
-                {{/each}}
-            </table>
-        </div>
-    </div>
 
     <div style="float:left;width:30%"> <!--Regrouper en liste ?-->
         <div>
@@ -160,16 +87,82 @@
         <div>
             <div>
                 <table>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
+                    <div style="padding: 0.5rem">
+                        <table style="width: 100%;">
+                            <tr>
+                                <th scope="col">{{ localize 'DND5E.HP' }}</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>{{hp.actual}}/{{hp.max}}</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="padding: 0.5rem">
+                        <table style="width: 100%;">
+                            <tr>
+                                <th scope="col">{{ localize 'DND5E.AC' }}</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>{{ac}}</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="padding: 0.5rem">
+                        <table style="width: 100%;">
+                            <tr>
+                                <th scope="col">{{ localize 'DND5E.Speed' }}</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>{{#each speeds}}
+                                        {{this.name}}:{{this.value}}{{this.units}};
+                                        {{/each}}</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="grid-column: span 3; padding: 0.5rem">
+                        <table style="width: 100%;">
+                            <tr>
+                                <th scope=" col">{{ localize 'DND5E.Senses' }}</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>{{#each senses}}
+                                        {{this.name}}:{{this.value}}{{this.units}};
+                                        {{/each}}</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div style="padding: 0.5rem">
+                <h2>{{ localize 'DND5E.Skills' }}</h2>
+                <table style="width: 100%;">
                     <tr>
                         <th scope="col">{{ localize 'DND5E.Biography' }}</th>
+                        <th>{{ localize 'DND5E-PRINT-SHEET.Name' }}</th>
+                        <th>{{ localize 'DND5E.Modifier' }}</th>
+                        <th>{{ localize 'DND5E.Passive' }}</th>
                     </tr>
+                    {{#each skills}}
                     <tr>
                         <td>
                             <span>
                                 {{{biography}}}
                             </span>
                         </td>
+                        <td>{{this.name.label}}</td>
+                        <td>{{this.mod}}</td>
+                        <td>{{this.passive}}</td>
                     </tr>
+                    {{/each}}
                 </table>
             </div>
         </div>
