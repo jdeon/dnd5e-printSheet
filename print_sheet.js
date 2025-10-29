@@ -6,8 +6,12 @@ class PrintActorSheetModule {
 
     static onRenderActorSheet(obj, html, data) {
         if (data.isCharacter) {
-            let element = $(html).find(".window-header .fa-ellipsis-vertical")
-            PrintActorSheetModule.addButton(element, data);
+            let element = $(html).find(".window-header .fa-ellipsis-vertical");
+            let existingButton = $(html).find(".print-sheet");
+
+            if (existingButton.length === 0) {
+                PrintActorSheetModule.addButton(element, data);
+            }
         }
     }
 
@@ -16,6 +20,7 @@ class PrintActorSheetModule {
         if (element.length != 1) {
             return;
         }
+
         let button = $(`<button class="header-control icon fa-solid fa-file-export print-sheet" data-tooltip="${game.i18n.localize("DND5E-PRINT-SHEET.PrintSheet")}" aria-label="${game.i18n.localize("DND5E-PRINT-SHEET.PrintSheet")}"/>`);
 
         button.on('click', () => PrintActorSheetModule.onButtonClick(dataObj));
