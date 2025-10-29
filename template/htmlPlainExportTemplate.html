@@ -22,7 +22,12 @@
                     </td>
                     <td>
                         <span>{{ localize 'DND5E-PRINT-SHEET.PlayerName' }} :</span>
-                        <br>&nbsp;
+                        <br>
+                        {{#if playerName }}
+                        <span>{{playerName}}</span>
+                        {{else}}
+                        &nbsp;
+                        {{/if}}
                     </td>
                 </tr>
                 <tr>
