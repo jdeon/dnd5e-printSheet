@@ -45,7 +45,7 @@
 
     <div style="display: grid; grid-template-columns: 1fr 2fr 2fr;">
         <div>
-            <div style="float:left;width:50%">
+            <div>
                 <table>
                     {{#each abilities}}
                     <tr>
@@ -193,12 +193,12 @@
         </div>
     </div>
 
-    <div style="float:left;width:100%">
-        <div style="float:left;width:100%">
+    <div style="display: grid; grid-template-columns: 1fr;overflow-wrap: anywhere;">
+        <div style="padding: 0.5rem">
             <h2>{{ localize 'DND5E.ConsumeAttribute' }}</h2>
             <table>
                 <tr>
-                    <th>{{ localize 'DND5E-PRINT-SHEET.Name' }}</th>
+                    <th style="width: 25%;">{{ localize 'DND5E-PRINT-SHEET.Name' }}</th>
                     <th>{{ localize 'DND5E.Description' }}</th>
                 </tr>
                 {{#each feats}}
@@ -214,10 +214,10 @@
             <h2>{{ localize 'TYPES.Item.spellPl' }}</h2>
             <table>
                 <tr>
-                    <th>{{ localize 'DND5E-PRINT-SHEET.Name' }}</th>
-                    <th>{{ localize 'DND5E.Level' }}</th>
-                    <th>{{ localize 'DND5E.ItemActivation' }}</th>
-                    <th>{{ localize 'DND5E.SpellComponents' }}</th>
+                    <th style="width: 20%;">{{ localize 'DND5E-PRINT-SHEET.Name' }}</th>
+                    <th style="width: 10%;">{{ localize 'DND5E.Level' }}</th>
+                    <th style="width: 15%;">{{ localize 'DND5E.ItemActivation' }}</th>
+                    <th style="width: 15%;">{{ localize 'DND5E.SpellComponents' }}</th>
                     <th>{{ localize 'DND5E.Description' }}</th>
                 </tr>
 
@@ -257,8 +257,8 @@
 
             <table>
                 <tr>
-                    <th>{{ localize 'DND5E-PRINT-SHEET.Name' }}</th>
-                    <th>{{ localize 'DND5E.Quantity' }}</th>
+                    <th style="width: 20%;">{{ localize 'DND5E-PRINT-SHEET.Name' }}</th>
+                    <th style="width: 10%;">{{ localize 'DND5E.Quantity' }}</th>
                     <th>{{ localize 'DND5E.Description' }}</th>
                 </tr>
 
