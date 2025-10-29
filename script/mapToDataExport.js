@@ -197,6 +197,9 @@ export default class DataMapper {
         exportSpellData.description = dndSpellData.system.description.value;
         exportSpellData.level = dndSpellData.system.level;
         exportSpellData.activation = { cost: dndSpellData.system.activation.cost, type: dndSpellData.system.activation.type };
+        exportSpellData.duration = { value: dndSpellData.system.duration.value, units: dndSpellData.system.duration.units };
+        exportSpellData.range = { value: dndSpellData.system.range.value, units: dndSpellData.system.range.units };
+        exportSpellData.school = dnd5e.config.spellSchools[dndSpellData.system.school]?.label;
 
         const spellComponents = dndSpellData.system.properties.map((property) => {
             if (!DataMapper._spellComponents.includes(property)) return undefined

@@ -218,6 +218,9 @@
                     <th>{{ localize 'DND5E.Level' }}</th>
                     <th>{{ localize 'DND5E.ItemActivation' }}</th>
                     <th>{{ localize 'DND5E.SpellComponents' }}</th>
+                    <th>{{ localize 'DND5E.School' }}</th>
+                    <th>{{ localize 'DND5E.Range' }}</th>
+                    <th>{{ localize 'DND5E.Duration' }}</th>
                     <th>{{ localize 'DND5E.Description' }}</th>
                 </tr>
 
@@ -227,6 +230,9 @@
                     <td>{{this.level}}</td>
                     <td>{{this.activation.cost}} {{this.activation.type}}</td>
                     <td>{{this.components}}</td>
+                    <td>{{this.school}}</td>
+                    <td>{{this.range.value}} {{this.range.units}}</td>
+                    <td>{{this.duration.value}} {{this.duration.units}}</td>
                     <td>{{{this.description}}}</td>
                 </tr>
                 {{/each}}
