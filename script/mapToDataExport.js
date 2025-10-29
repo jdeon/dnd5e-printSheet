@@ -134,6 +134,7 @@ export default class DataMapper {
                     break;
                 case 'background':
                 case 'subclass':
+                case 'race':
                     //Do nothing;
                     break;
                 default:
