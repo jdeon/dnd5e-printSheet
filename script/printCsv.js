@@ -84,7 +84,7 @@ export default class PrintSheetCsv {
         }
         outText += this.defaultOptions.separatorChar.repeat(10) + this.defaultOptions.returnLineChar;
 
-        outText += game.i18n.localize('DND5E.ConsumeAttribute') + ' : ' + this.defaultOptions.separatorChar.repeat(10) + this.defaultOptions.returnLineChar;
+        outText += game.i18n.localize('TYPES.Item.featurePl') + ' : ' + this.defaultOptions.separatorChar.repeat(10) + this.defaultOptions.returnLineChar;
         for (var i = 0; i < dataExport.feats.length; i++) {
             let feat = dataExport.feats[i];
             outText += feat.name + this.defaultOptions.separatorChar.repeat(7) + "\"" + this.deleteSpecialChar(feat.description) + "\"" + this.defaultOptions.separatorChar.repeat(3) + this.defaultOptions.returnLineChar;
