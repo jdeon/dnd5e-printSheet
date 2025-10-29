@@ -1,4 +1,4 @@
-<div id=globalContainner style="float:left;width:100%">
+<div id=globalContainner>
     <div style="display: grid; grid-template-columns: 1fr 2fr;">
 
         <div>
@@ -70,8 +70,8 @@
         <div>
             <div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
-                    <div style="padding: 0.5rem">
-                        <table style="width: 100%;">
+                    <div class="pad-table">
+                        <table>
                             <tr>
                                 <th scope="col">{{ localize 'DND5E.HP' }}</th>
                             </tr>
@@ -82,8 +82,8 @@
                             </tr>
                         </table>
                     </div>
-                    <div style="padding: 0.5rem">
-                        <table style="width: 100%;">
+                    <div class="pad-table">
+                        <table>
                             <tr>
                                 <th scope="col">{{ localize 'DND5E.AC' }}</th>
                             </tr>
@@ -94,8 +94,8 @@
                             </tr>
                         </table>
                     </div>
-                    <div style="padding: 0.5rem">
-                        <table style="width: 100%;">
+                    <div class="pad-table">
+                        <table>
                             <tr>
                                 <th scope="col">{{ localize 'DND5E.Speed' }}</th>
                             </tr>
@@ -108,8 +108,8 @@
                             </tr>
                         </table>
                     </div>
-                    <div style="grid-column: span 3; padding: 0.5rem">
-                        <table style="width: 100%;">
+                    <div class="pad-table" style="grid-column: span 3;">
+                        <table>
                             <tr>
                                 <th scope=" col">{{ localize 'DND5E.Senses' }}</th>
                             </tr>
@@ -124,9 +124,9 @@
                     </div>
                 </div>
             </div>
-            <div style="padding: 0.5rem">
+            <div class="pad-table">
                 <h2>{{ localize 'DND5E.Skills' }}</h2>
-                <table style="width: 100%;">
+                <table>
                     <tr>
                         <th>{{ localize 'DND5E-PRINT-SHEET.Name' }}</th>
                         <th>{{ localize 'DND5E.Modifier' }}</th>
@@ -147,8 +147,8 @@
 
 
             <div style="display: grid; grid-template-columns: 1fr"> <!--TODO Regrouper en liste ?-->
-                <div style="padding: 0.5rem">
-                    <table style="width: 100%;">
+                <div class="pad-table">
+                    <table>
                         {{#each personality}}
                         <tr>
                             <th scope="col">{{this.name}}</th>
@@ -161,8 +161,8 @@
                         {{/each}}
                     </table>
                 </div>
-                <div style="padding: 0.5rem">
-                    <table style="width: 100%;">
+                <div class="pad-table">
+                    <table>
                         <tr>
                             <th scope="col">{{ localize 'DND5E.Biography' }}</th>
                         </tr>
@@ -175,8 +175,8 @@
                         </tr>
                     </table>
                 </div>
-                <div style="padding: 0.5rem">
-                    <table style="width: 100%;">
+                <div class="pad-table">
+                    <table>
                         <tr>
                             <th scope="col">{{ localize 'DND5E.Appearance' }}</th>
                         </tr>
@@ -194,11 +194,11 @@
     </div>
 
     <div style="display: grid; grid-template-columns: 1fr;overflow-wrap: anywhere;">
-        <div style="padding: 0.5rem">
             <h2>{{ localize 'DND5E.ConsumeAttribute' }}</h2>
-            <table>
+        <div class="pad-table">
+            <table class="feat-table">
                 <tr>
-                    <th style="width: 25%;">{{ localize 'DND5E-PRINT-SHEET.Name' }}</th>
+                    <th>{{ localize 'DND5E-PRINT-SHEET.Name' }}</th>
                     <th>{{ localize 'DND5E.Description' }}</th>
                 </tr>
                 {{#each feats}}
@@ -210,14 +210,14 @@
             </table>
         </div>
 
-        <div style="float:left;width:100%">
+        <div class="pad-table">
             <h2>{{ localize 'TYPES.Item.spellPl' }}</h2>
-            <table>
+            <table class="spell-table">
                 <tr>
-                    <th style="width: 20%;">{{ localize 'DND5E-PRINT-SHEET.Name' }}</th>
-                    <th style="width: 10%;">{{ localize 'DND5E.Level' }}</th>
-                    <th style="width: 15%;">{{ localize 'DND5E.ItemActivation' }}</th>
-                    <th style="width: 15%;">{{ localize 'DND5E.SpellComponents' }}</th>
+                    <th>{{ localize 'DND5E-PRINT-SHEET.Name' }}</th>
+                    <th>{{ localize 'DND5E.Level' }}</th>
+                    <th>{{ localize 'DND5E.ItemActivation' }}</th>
+                    <th>{{ localize 'DND5E.SpellComponents' }}</th>
                     <th>{{ localize 'DND5E.Description' }}</th>
                 </tr>
 
@@ -234,9 +234,9 @@
             </table>
         </div>
 
-        <div style="float:left;width:100%">
+        <div class="pad-table">
             <h2>{{ localize 'DND5E.Inventory' }}</h2>
-            <table>
+            <table style="max-width: 500px">
                 <tr>
                     <th>{{ localize 'DND5E.CurrencyAbbrPP' }}</th>
                     <th>{{ localize 'DND5E.CurrencyAbbrGP' }}</th>
@@ -255,10 +255,10 @@
 
             <br />
 
-            <table>
+            <table class="inventory-table">
                 <tr>
-                    <th style="width: 20%;">{{ localize 'DND5E-PRINT-SHEET.Name' }}</th>
-                    <th style="width: 10%;">{{ localize 'DND5E.Quantity' }}</th>
+                    <th>{{ localize 'DND5E-PRINT-SHEET.Name' }}</th>
+                    <th>{{ localize 'DND5E.Quantity' }}</th>
                     <th>{{ localize 'DND5E.Description' }}</th>
                 </tr>
 
@@ -304,6 +304,63 @@
             letter-spacing: 1px;
             font-family: sans-serif;
             font-size: .8rem;
+        }
+
+        .pad-table {
+            padding: 0.5rem;
+
+            table {
+                width: 100%;
+            }
+        }
+
+        .feat-table {
+
+            th:first-child,
+            td:first-child {
+                width: 25%;
+            }
+        }
+
+        .spell-table {
+
+            th:first-child,
+            td:first-child {
+                width: 20%;
+            }
+
+            th:nth-child(2),
+            td:nth-child(2) {
+                width: 10%;
+            }
+
+            th:nth-child(3),
+            td:nth-child(3) {
+                width: 15%;
+            }
+
+            th:nth-child(4),
+            td:nth-child(4) {
+                width: 15%;
+            }
+        }
+
+        .inventory-table {
+
+            th:first-child,
+            td:first-child {
+                width: 20%;
+            }
+
+            th:nth-child(2),
+            td:nth-child(2) {
+                width: 10%;
+            }
+        }
+
+        #globalContainner {
+            float: left;
+            width: 100%;
         }
     </style>
 </div>
