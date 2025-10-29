@@ -91,12 +91,18 @@ export default class PrintSheetCsv {
         }
         outText += this.defaultOptions.separatorChar.repeat(10) + this.defaultOptions.returnLineChar;
 
-        outText += game.i18n.localize('TYPES.Item.spellPl') + ' : ' + this.defaultOptions.separatorChar.repeat(10) + this.defaultOptions.returnLineChar;
+        outText += game.i18n.localize('TYPES.Item.spellPl') + this.defaultOptions.separatorChar + game.i18n.localize('DND5E.ItemActivation') + this.defaultOptions.separatorChar
+        outText += game.i18n.localize('DND5E.SpellComponents') + this.defaultOptions.separatorChar + game.i18n.localize('DND5E.School') + this.defaultOptions.separatorChar
+        outText += game.i18n.localize('DND5E.Range') + this.defaultOptions.separatorChar + game.i18n.localize('DND5E.Duration') + this.defaultOptions.separatorChar
+        outText += game.i18n.localize('DND5E.Description') + this.defaultOptions.separatorChar.repeat(3) + this.defaultOptions.returnLineChar;
+
+
         for (var i = 0; i < dataExport.spells.length; i++) {
             let spell = dataExport.spells[i];
             outText += spell.name + ' (' + game.i18n.localize('DND5E.AbbreviationLevel') + spell.level + ')' + this.defaultOptions.separatorChar;
             outText += spell.activation.cost + ' ' + spell.activation.type + this.defaultOptions.separatorChar;
-            outText += "\"" + spell.components + "\"" + this.defaultOptions.separatorChar.repeat(5);
+            outText += "\"" + spell.components + "\"" + this.defaultOptions.separatorChar + spell.school + this.defaultOptions.separatorChar;
+            outText += (spell?.range?.value ?? '') + ' ' + (spell?.range?.units ?? '') + this.defaultOptions.separatorChar + (spell?.duration?.value ?? '') + ' ' + (spell?.duration?.units ?? '') + this.defaultOptions.separatorChar;
             outText += "\"" + this.deleteSpecialChar(spell.description) + "\"" + this.defaultOptions.separatorChar.repeat(3) + this.defaultOptions.returnLineChar;
         }
         outText += this.defaultOptions.separatorChar.repeat(10) + this.defaultOptions.returnLineChar;
