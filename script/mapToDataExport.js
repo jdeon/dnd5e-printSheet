@@ -137,7 +137,7 @@ export default class DataMapper {
                 case 'race':
                     //Do nothing;
                     break;
-                default:
+                default://loot, consumable, container, equipment, weapon
                     objects.push(DataMapper.mapOjbectDndDataToExport(item));
                     break;
             }
