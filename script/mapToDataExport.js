@@ -5,6 +5,13 @@ export default class DataMapper {
 
         let dataItem = DataMapper.sortItemByType(dataDnd.items);
 
+        const actorOwners = Object.entries(dataDnd.actor.ownership).filter(([key, value]) => value === CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER).map(([key]) => key)
+        if (!game.user.isGM && actorOwners.includes(game.user.id)) {
+            dataExport.playerName = game.user.name
+        } else {
+            dataExport.playerName = game.users.players.find(({ _id }) => actorOwners.includes(_id))?.name;
+        }
+
         dataExport.pcName = dataDnd.actor.name;
         dataExport.alignment = dataDnd.system.details.alignment;
         dataExport.race = dataDnd.system.details.race;
