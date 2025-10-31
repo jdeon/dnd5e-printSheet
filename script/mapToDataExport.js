@@ -230,7 +230,8 @@ export default class DataMapper {
     static _replaceFoundryLink(textInput) {
         if (!(textInput && typeof textInput === 'string')) return textInput
 
-        const regex = /(@UUID\[.*?\]\{)(.*?)(\})/g;
-        return textInput.replaceAll(regex, '<em><span class="underline">$2</span></em>');
+        const uuidRegex = /(@UUID\[.*?\]\{)(.*?)(\})/g;
+        const compendiumRegex = /(@Compendium\[.*?\]\{)(.*?)(\})/g;
+        return textInput.replaceAll(uuidRegex, '<em><span class="underline">$2</span></em>').replaceAll(compendiumRegex, '<em><span class="underline">$2</span></em>');
     }
 }
