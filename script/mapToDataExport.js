@@ -184,7 +184,7 @@ export default class DataMapper {
 
         exportObjectData.name = dndObjectData.name;
         exportObjectData.quantity = dndObjectData.system.quantity;
-        exportObjectData.description = dndObjectData.system.description.value;
+        exportObjectData.description = DataMapper._removeFoundrySecret(DataMapper._replaceFoundryLink(dndObjectData.system.description.value));
 
         return exportObjectData;
     }
@@ -193,7 +193,7 @@ export default class DataMapper {
         let exportFeatData = {};
 
         exportFeatData.name = dndFeatData.name;
-        exportFeatData.description = dndFeatData.system.description.value;
+        exportFeatData.description = DataMapper._removeFoundrySecret(DataMapper._replaceFoundryLink(dndFeatData.system.description.value));
 
         return exportFeatData;
     }
@@ -202,7 +202,7 @@ export default class DataMapper {
         let exportSpellData = {};
 
         exportSpellData.name = dndSpellData.name;
-        exportSpellData.description = dndSpellData.system.description.value;
+        exportSpellData.description = DataMapper._removeFoundrySecret(DataMapper._replaceFoundryLink(dndSpellData.system.description.value));
         exportSpellData.level = dndSpellData.system.level;
         exportSpellData.activation = { cost: dndSpellData.system.activation.cost, type: dndSpellData.system.activation.type };
         exportSpellData.duration = { value: dndSpellData.system.duration.value, units: dndSpellData.system.duration.units };
@@ -226,4 +226,19 @@ export default class DataMapper {
     }
 
     static _spellComponents = ["vocal", "somatic", "material", "ritual", "concentration"]
+
+    static _replaceFoundryLink(textInput) {
+        if (!(textInput && typeof textInput === 'string')) return textInput
+
+        const uuidRegex = /(@UUID\[.*?\]\{)(.*?)(\})/g;
+        const compendiumRegex = /(@Compendium\[.*?\]\{)(.*?)(\})/g;
+        return textInput.replaceAll(uuidRegex, '<em><span class="underline">$2</span></em>').replaceAll(compendiumRegex, '<em><span class="underline">$2</span></em>');
+    }
+
+    static _removeFoundrySecret(textInput) {
+        if (!(textInput && typeof textInput === 'string')) return textInput
+
+        const sectionRegex = /<section class=".*?secret.*?>.*?<\/section>/g;
+        return textInput.replaceAll(sectionRegex, '');
+    }
 }
