@@ -218,6 +218,9 @@
         <div class="accordion-details parent-accordion">
             <table>
                 {{#each spellsByLevel}}
+                <tr>
+                    <td> <b>{{ localize 'DND5E.Level' }} {{ this.level }}</b></td>
+                </tr>
                 {{#each spells}}
                 <tr>
                     <td class="nested-table">
