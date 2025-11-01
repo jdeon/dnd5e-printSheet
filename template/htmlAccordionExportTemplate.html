@@ -219,7 +219,19 @@
             <table>
                 {{#each spellsByLevel}}
                 <tr>
-                    <td> <b>{{ localize 'DND5E.Level' }} {{ this.level }}</b></td>
+                    <td>
+                        <div>
+                            <div><b>{{ localize 'DND5E.Level' }} {{ this.level }}</b></div>
+                            {{#if slot}}
+
+                            <div class="spellSlot">
+                                {{#times slot}}
+                                <div></div>
+                                {{/times}}
+
+                            </div>
+                        </div>
+                        {{/if}}
                 </tr>
                 {{#each spells}}
                 <tr>
@@ -405,6 +417,18 @@
 
         .active.accordion-details.parent-accordion {
             max-height: 10000rem;
+        }
+
+        .spellSlot {
+            display: flex;
+            justify-content: center;
+
+            div {
+                border: 2px solid;
+                width: 1rem;
+                height: 1rem;
+                margin: 2px;
+            }
         }
 
 

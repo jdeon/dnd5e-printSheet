@@ -3,7 +3,7 @@ export default class DataMapper {
     static mapDndDataToDataExport(dataDnd = {}) {
         let dataExport = {};
 
-        let dataItem = DataMapper.sortItemByType(dataDnd.items);
+        let dataItem = DataMapper.sortItemByType(dataDnd.items, dataDnd.actor.system.spells);
 
         const actorOwners = Object.entries(dataDnd.actor.ownership).filter(([key, value]) => value === CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER).map(([key]) => key)
         if (!game.user.isGM && actorOwners.includes(game.user.id)) {
@@ -122,11 +122,21 @@ export default class DataMapper {
         return dataSensesExport;
     }
 
-    static sortItemByType(items) {
+    static sortItemByType(items, spellSlotsData) {
         let classes = [];
         let objects = [];
         let feats = [];
-        let spellsByLevel = {};
+        let spellsByLevel = Object.values(spellSlotsData)
+            .reduce((acc, spellSlot) => {
+                if (spellSlot.max) {
+                    acc[spellSlot.level] = {
+                        slot: spellSlot.max,
+                        spells: []
+                    }
+                }
+
+                return acc
+            }, {})
 
         items.forEach(item => {
             switch (item.type) {
@@ -161,9 +171,10 @@ export default class DataMapper {
             objects: objects,
             feats: feats,
             spellsByLevel: Object.entries(spellsByLevel)
-                .reduce((acc, [level, { spells }]) => {
+                .reduce((acc, [level, { slot, spells }]) => {
                     acc.push({
                         level,
+                        slot,
                         spells: spells.sort(function (a, b) {
                             return a.name.localeCompare(b.name);
                         })
