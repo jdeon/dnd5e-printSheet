@@ -217,6 +217,7 @@
         </button>
         <div class="accordion-details parent-accordion">
             <table>
+                {{#each spellsByLevel}}
                 {{#each spells}}
                 <tr>
                     <td class="nested-table">
@@ -282,6 +283,7 @@
                         </div>
                     </td>
                 </tr>
+                {{/each}}
                 {{/each}}
             </table>
         </div>

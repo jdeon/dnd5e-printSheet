@@ -230,7 +230,8 @@
                     <th>{{ localize 'DND5E.Description' }}</th>
                 </tr>
 
-                {{#each spells}}
+                {{#each spellsByLevel}}
+                {{#each this.spells}}
                 <tr>
                     <td>{{this.name}}</td>
                     <td>{{this.level}}</td>
@@ -241,6 +242,7 @@
                     <td>{{this.duration.value}} {{this.duration.units}}</td>
                     <td>{{{this.description}}}</td>
                 </tr>
+                {{/each}}
                 {{/each}}
 
             </table>

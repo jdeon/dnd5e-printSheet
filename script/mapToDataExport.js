@@ -27,7 +27,7 @@ export default class DataMapper {
         dataExport.abilities = DataMapper.mapDndAbilitiesDataToDataExport(dataDnd.system.abilities);
         dataExport.skills = DataMapper.mapDndSkillsDataToDataExport(dataDnd.system.skills);
         dataExport.feats = dataItem.feats;
-        dataExport.spells = dataItem.spells;
+        dataExport.spellsByLevel = dataItem.spellsByLevel;
 
         dataExport.biography = dataDnd.system.details.biography.value;
         dataExport.appearance = dataDnd.system.details.appearance; //localize "DND5E.Appearance" 
@@ -126,7 +126,7 @@ export default class DataMapper {
         let classes = [];
         let objects = [];
         let feats = [];
-        let spells = [];
+        let spellsByLevel = {};
 
         items.forEach(item => {
             switch (item.type) {
@@ -137,7 +137,13 @@ export default class DataMapper {
                     feats.push(DataMapper.mapFeatsDndDataToExport(item));
                     break;
                 case 'spell':
-                    spells.push(DataMapper.mapSpellsDndDataToExport(item));
+                    const spell = DataMapper.mapSpellsDndDataToExport(item, spellsByLevel);
+                    if (spellsByLevel[spell.level] === undefined) {
+                        spellsByLevel[spell.level] = {
+                            spells: []
+                        };
+                    }
+                    spellsByLevel[spell.level].spells.push(spell);
                     break;
                 case 'background':
                 case 'subclass':
@@ -150,19 +156,24 @@ export default class DataMapper {
             }
         });
 
-        spells.sort(function (a, b) {
-            if (a.level === b.level) {
-                return a.name.localeCompare(b.name);
-            } else {
-                return a.level - b.level;
-            }
-        });
-
         return {
             classes: classes,
             objects: objects,
             feats: feats,
-            spells: spells
+            spellsByLevel: Object.entries(spellsByLevel)
+                .reduce((acc, [level, { spells }]) => {
+                    acc.push({
+                        level,
+                        spells: spells.sort(function (a, b) {
+                            return a.name.localeCompare(b.name);
+                        })
+                    })
+
+                    return acc
+                }, [])
+                .sort(function (a, b) {
+                    return a.level - b.level;
+                })
         };
     }
 
