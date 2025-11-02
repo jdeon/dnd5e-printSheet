@@ -217,6 +217,22 @@
         </button>
         <div class="accordion-details parent-accordion">
             <table>
+                {{#each spellsByLevel}}
+                <tr>
+                    <td>
+                        <div>
+                            <div><b>{{ localize 'DND5E.Level' }} {{ this.level }}</b></div>
+                            {{#if slot}}
+
+                            <div class="spellSlot">
+                                {{#times slot}}
+                                <input type="checkbox" />
+                                {{/times}}
+
+                            </div>
+                        </div>
+                        {{/if}}
+                </tr>
                 {{#each spells}}
                 <tr>
                     <td class="nested-table">
@@ -282,6 +298,7 @@
                         </div>
                     </td>
                 </tr>
+                {{/each}}
                 {{/each}}
             </table>
         </div>
@@ -400,6 +417,16 @@
 
         .active.accordion-details.parent-accordion {
             max-height: 10000rem;
+        }
+
+        .spellSlot {
+            display: flex;
+            justify-content: center;
+
+            input {
+                transform: scale(2);
+                margin: .5rem;
+            }
         }
 
 

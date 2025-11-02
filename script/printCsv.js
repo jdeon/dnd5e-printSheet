@@ -97,14 +97,25 @@ export default class PrintSheetCsv {
         outText += game.i18n.localize('DND5E.Description') + this.defaultOptions.separatorChar.repeat(3) + this.defaultOptions.returnLineChar;
 
 
-        for (var i = 0; i < dataExport.spells.length; i++) {
-            let spell = dataExport.spells[i];
-            outText += spell.name + ' (' + game.i18n.localize('DND5E.AbbreviationLevel') + spell.level + ')' + this.defaultOptions.separatorChar;
-            outText += (spell.activation.cost ?? '') + ' ' + spell.activation.type + this.defaultOptions.separatorChar;
-            outText += "\"" + spell.components + "\"" + this.defaultOptions.separatorChar + spell.school + this.defaultOptions.separatorChar;
-            outText += (spell?.range?.value ?? '') + ' ' + (spell?.range?.units ?? '') + this.defaultOptions.separatorChar + (spell?.duration?.value ?? '') + ' ' + (spell?.duration?.units ?? '') + this.defaultOptions.separatorChar;
-            outText += "\"" + this.deleteSpecialChar(spell.description) + "\"" + this.defaultOptions.separatorChar.repeat(3) + this.defaultOptions.returnLineChar;
+        for (var spellsByLevel of dataExport.spellsByLevel) {
+            outText += game.i18n.localize('DND5E.Level') + this.defaultOptions.separatorChar + spellsByLevel.level + this.defaultOptions.separatorChar;
+            if (spellsByLevel.slot) {
+                outText += game.i18n.localize('DND5E.CONSUMPTION.Type.SpellSlots.Label') + this.defaultOptions.separatorChar + spellsByLevel.slot + this.defaultOptions.separatorChar;
+            } else {
+                outText += this.defaultOptions.separatorChar.repeat(2)
+            }
+            outText += this.defaultOptions.separatorChar.repeat(6) + this.defaultOptions.returnLineChar
+
+            for (var spell of spellsByLevel.spells) {
+                outText += spell.name + this.defaultOptions.separatorChar;
+                outText += (spell.activation.cost ?? '') + ' ' + spell.activation.type + this.defaultOptions.separatorChar;
+                outText += "\"" + spell.components + "\"" + this.defaultOptions.separatorChar + spell.school + this.defaultOptions.separatorChar;
+                outText += (spell?.range?.value ?? '') + ' ' + (spell?.range?.units ?? '') + this.defaultOptions.separatorChar + (spell?.duration?.value ?? '') + ' ' + (spell?.duration?.units ?? '') + this.defaultOptions.separatorChar;
+                outText += "\"" + this.deleteSpecialChar(spell.description) + "\"" + this.defaultOptions.separatorChar.repeat(3) + this.defaultOptions.returnLineChar;
+            }
         }
+
+
         outText += this.defaultOptions.separatorChar.repeat(10) + this.defaultOptions.returnLineChar;
 
         outText += game.i18n.localize('DND5E.Inventory') + ' : ' + this.defaultOptions.separatorChar.repeat(10) + this.defaultOptions.returnLineChar;
