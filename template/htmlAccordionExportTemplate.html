@@ -226,7 +226,7 @@
 
                             <div class="spellSlot">
                                 {{#times slot}}
-                                <div></div>
+                                <input type="checkbox" />
                                 {{/times}}
 
                             </div>
@@ -423,11 +423,9 @@
             display: flex;
             justify-content: center;
 
-            div {
-                border: 2px solid;
-                width: 1rem;
-                height: 1rem;
-                margin: 2px;
+            input {
+                transform: scale(2);
+                margin: .5rem;
             }
         }
 
