@@ -187,7 +187,7 @@
 
     <div class="accordion">
         <button class="accordion-header">
-            <h2>{{ localize 'DND5E.ConsumeAttribute' }}</h2>
+            <h2>{{ localize 'TYPES.Item.featurePl' }}</h2>
         </button>
         <div class="accordion-details parent-accordion">
             <table>
@@ -217,6 +217,22 @@
         </button>
         <div class="accordion-details parent-accordion">
             <table>
+                {{#each spellsByLevel}}
+                <tr>
+                    <td>
+                        <div>
+                            <div><b>{{ localize 'DND5E.Level' }} {{ this.level }}</b></div>
+                            {{#if slot}}
+
+                            <div class="spellSlot">
+                                {{#times slot}}
+                                <input type="checkbox" />
+                                {{/times}}
+
+                            </div>
+                        </div>
+                        {{/if}}
+                </tr>
                 {{#each spells}}
                 <tr>
                     <td class="nested-table">
@@ -282,6 +298,7 @@
                         </div>
                     </td>
                 </tr>
+                {{/each}}
                 {{/each}}
             </table>
         </div>
@@ -402,6 +419,16 @@
             max-height: 10000rem;
         }
 
+        .spellSlot {
+            display: flex;
+            justify-content: center;
+
+            input {
+                transform: scale(2);
+                margin: .5rem;
+            }
+        }
+
 
         td,
         th {
@@ -438,6 +465,10 @@
         td.nested-table {
             padding: 0px;
             border: 0;
+        }
+
+        .underline {
+            text-decoration: underline;
         }
     </style>
 </div>

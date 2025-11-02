@@ -3,7 +3,14 @@ export default class DataMapper {
     static mapDndDataToDataExport(dataDnd = {}) {
         let dataExport = {};
 
-        let dataItem = DataMapper.sortItemByType(dataDnd.items);
+        let dataItem = DataMapper.sortItemByType(dataDnd.items, dataDnd.actor.system.spells);
+
+        const actorOwners = Object.entries(dataDnd.actor.ownership).filter(([key, value]) => value === CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER).map(([key]) => key)
+        if (!game.user.isGM && actorOwners.includes(game.user.id)) {
+            dataExport.playerName = game.user.name
+        } else {
+            dataExport.playerName = game.users.players.find(({ _id }) => actorOwners.includes(_id))?.name;
+        }
 
         dataExport.pcName = dataDnd.actor.name;
         dataExport.alignment = dataDnd.system.details.alignment;
@@ -20,7 +27,7 @@ export default class DataMapper {
         dataExport.abilities = DataMapper.mapDndAbilitiesDataToDataExport(dataDnd.system.abilities);
         dataExport.skills = DataMapper.mapDndSkillsDataToDataExport(dataDnd.system.skills);
         dataExport.feats = dataItem.feats;
-        dataExport.spells = dataItem.spells;
+        dataExport.spellsByLevel = dataItem.spellsByLevel;
 
         dataExport.biography = dataDnd.system.details.biography.value;
         dataExport.appearance = dataDnd.system.details.appearance; //localize "DND5E.Appearance" 
@@ -115,11 +122,25 @@ export default class DataMapper {
         return dataSensesExport;
     }
 
-    static sortItemByType(items) {
+    static sortItemByType(items, spellSlotsData) {
         let classes = [];
         let objects = [];
         let feats = [];
-        let spells = [];
+        let spellsByLevel = Object.values(spellSlotsData)
+            .reduce((acc, spellSlot) => {
+                if (spellSlot.max) {
+                    if (acc[spellSlot.level]) {
+                        acc[spellSlot.level].slot += spellSlot.max;
+                    } else {
+                        acc[spellSlot.level] = {
+                            slot: spellSlot.max,
+                            spells: []
+                        }
+                    }
+                }
+
+                return acc
+            }, {})
 
         items.forEach(item => {
             switch (item.type) {
@@ -130,23 +151,22 @@ export default class DataMapper {
                     feats.push(DataMapper.mapFeatsDndDataToExport(item));
                     break;
                 case 'spell':
-                    spells.push(DataMapper.mapSpellsDndDataToExport(item));
+                    const spell = DataMapper.mapSpellsDndDataToExport(item, spellsByLevel);
+                    if (spellsByLevel[spell.level] === undefined) {
+                        spellsByLevel[spell.level] = {
+                            spells: []
+                        };
+                    }
+                    spellsByLevel[spell.level].spells.push(spell);
                     break;
                 case 'background':
                 case 'subclass':
+                case 'race':
                     //Do nothing;
                     break;
-                default:
+                default://loot, consumable, container, equipment, weapon
                     objects.push(DataMapper.mapOjbectDndDataToExport(item));
                     break;
-            }
-        });
-
-        spells.sort(function (a, b) {
-            if (a.level === b.level) {
-                return a.name.localeCompare(b.name);
-            } else {
-                return a.level - b.level;
             }
         });
 
@@ -154,7 +174,21 @@ export default class DataMapper {
             classes: classes,
             objects: objects,
             feats: feats,
-            spells: spells
+            spellsByLevel: Object.entries(spellsByLevel)
+                .reduce((acc, [level, { slot, spells }]) => {
+                    acc.push({
+                        level,
+                        slot,
+                        spells: spells.sort(function (a, b) {
+                            return a.name.localeCompare(b.name);
+                        })
+                    })
+
+                    return acc
+                }, [])
+                .sort(function (a, b) {
+                    return a.level - b.level;
+                })
         };
     }
 
@@ -176,7 +210,7 @@ export default class DataMapper {
 
         exportObjectData.name = dndObjectData.name;
         exportObjectData.quantity = dndObjectData.system.quantity;
-        exportObjectData.description = dndObjectData.system.description.value;
+        exportObjectData.description = DataMapper._removeFoundrySecret(DataMapper._replaceFoundryLink(dndObjectData.system.description.value));
 
         return exportObjectData;
     }
@@ -185,7 +219,7 @@ export default class DataMapper {
         let exportFeatData = {};
 
         exportFeatData.name = dndFeatData.name;
-        exportFeatData.description = dndFeatData.system.description.value;
+        exportFeatData.description = DataMapper._removeFoundrySecret(DataMapper._replaceFoundryLink(dndFeatData.system.description.value));
 
         return exportFeatData;
     }
@@ -194,7 +228,7 @@ export default class DataMapper {
         let exportSpellData = {};
 
         exportSpellData.name = dndSpellData.name;
-        exportSpellData.description = dndSpellData.system.description.value;
+        exportSpellData.description = DataMapper._removeFoundrySecret(DataMapper._replaceFoundryLink(dndSpellData.system.description.value));
         exportSpellData.level = dndSpellData.system.level;
         exportSpellData.activation = { cost: dndSpellData.system.activation.cost, type: dndSpellData.system.activation.type };
         exportSpellData.duration = { value: dndSpellData.system.duration.value, units: dndSpellData.system.duration.units };
@@ -218,4 +252,19 @@ export default class DataMapper {
     }
 
     static _spellComponents = ["vocal", "somatic", "material", "ritual", "concentration"]
+
+    static _replaceFoundryLink(textInput) {
+        if (!(textInput && typeof textInput === 'string')) return textInput
+
+        const uuidRegex = /(@UUID\[.*?\]\{)(.*?)(\})/g;
+        const compendiumRegex = /(@Compendium\[.*?\]\{)(.*?)(\})/g;
+        return textInput.replaceAll(uuidRegex, '<em><span class="underline">$2</span></em>').replaceAll(compendiumRegex, '<em><span class="underline">$2</span></em>');
+    }
+
+    static _removeFoundrySecret(textInput) {
+        if (!(textInput && typeof textInput === 'string')) return textInput
+
+        const sectionRegex = /<section class=".*?secret.*?>.*?<\/section>/g;
+        return textInput.replaceAll(sectionRegex, '');
+    }
 }
