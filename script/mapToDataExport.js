@@ -129,9 +129,13 @@ export default class DataMapper {
         let spellsByLevel = Object.values(spellSlotsData)
             .reduce((acc, spellSlot) => {
                 if (spellSlot.max) {
-                    acc[spellSlot.level] = {
-                        slot: spellSlot.max,
-                        spells: []
+                    if (acc[spellSlot.level]) {
+                        acc[spellSlot.level].slot += spellSlot.max;
+                    } else {
+                        acc[spellSlot.level] = {
+                            slot: spellSlot.max,
+                            spells: []
+                        }
                     }
                 }
 
