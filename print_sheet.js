@@ -138,6 +138,25 @@ Hooks.once('ready', () => {
 
 Hooks.on('renderCharacterActorSheet', PrintActorSheetModule.onRenderActorSheet);
 
+/**
+ * TODO migrate in controls header ?
+ * 
+ Hooks.on('getHeaderControlsActorSheetV2', (app, controls) => {
+    controls.push({
+        label: game.i18n.localize('DND5E-PRINT-SHEET.PrintSheet'),
+        class: "print-sheet",
+        icon: "fa-solid fa-file-expor",
+        onclick: () => {
+            PrintActorSheetModule.onButtonClick();//TODO find dataObj
+        },
+        onClick: () => {
+            PrintActorSheetModule.onButtonClick();//TODO find dataObj
+        },
+    })
+});
+ * 
+ */
+
 Handlebars.registerHelper('times', function (n, block) {
     var accum = '';
     for (var i = 0; i < n; ++i)
