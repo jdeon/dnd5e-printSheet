@@ -13,8 +13,8 @@ export default class DataMapper {
         }
 
         dataExport.pcName = dataDnd.actor.name;
-        dataExport.alignment = dataDnd.system.details.alignment;
-        dataExport.race = dataDnd.system.details.race;
+        dataExport.alignment = dataDnd.system.details.alignment?.length ? dataDnd.system.details.alignment : game.i18n.localize("DND5E-PRINT-SHEET.undefined");
+        dataExport.race = dataDnd.system.details.race ?? game.i18n.localize("DND5E-PRINT-SHEET.undefined");
         dataExport.background = dataDnd.system.details.background?.name ?? game.i18n.localize("DND5E-PRINT-SHEET.undefined");
         dataExport.xp = { value: dataDnd.system.details.xp.value, lvl: dataDnd.system.details.level, nextLvl: dataDnd.system.details.xp.max };//TODO level et xp max
         dataExport.classes = dataItem.classes;
@@ -76,13 +76,6 @@ export default class DataMapper {
             dataSkillExport.value = skill.value;
             dataSkillExport.mod = skill.total;
             dataSkillExport.passive = skill.passive;
-
-            /*
-            ability: "dex"
-            bonus: 0
-            mod: 4
-            prof: 6
-            */
 
             dataSkillsExport.push(dataSkillExport);
         }
