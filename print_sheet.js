@@ -23,7 +23,11 @@ class PrintActorSheetModule {
 
         let button = $(`<button class="header-control icon fa-solid fa-file-export print-sheet" data-tooltip="${game.i18n.localize("DND5E-PRINT-SHEET.PrintSheet")}" aria-label="${game.i18n.localize("DND5E-PRINT-SHEET.PrintSheet")}"/>`);
 
-        button.on('click', () => PrintActorSheetModule.onButtonClick(dataObj));
+        button.on('click', (event) => {
+            if (event.pointerType === "mouse") {//Avoid activate on enter when exiting another field
+                PrintActorSheetModule.onButtonClick(dataObj)
+            }
+        });
         element.after(button);
     }
 
