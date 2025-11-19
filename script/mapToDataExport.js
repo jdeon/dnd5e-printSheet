@@ -15,7 +15,7 @@ export default class DataMapper {
         dataExport.pcName = dataDnd.actor.name;
         dataExport.alignment = dataDnd.system.details.alignment;
         dataExport.race = dataDnd.system.details.race;
-        dataExport.background = dataDnd.system.details.background.name;
+        dataExport.background = dataDnd.system.details.background?.name ?? game.i18n.localize("DND5E-PRINT-SHEET.undefined");
         dataExport.xp = { value: dataDnd.system.details.xp.value, lvl: dataDnd.system.details.level, nextLvl: dataDnd.system.details.xp.max };//TODO level et xp max
         dataExport.classes = dataItem.classes;
 
