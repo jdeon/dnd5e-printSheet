@@ -117,7 +117,7 @@ export default class DataMapper {
 
     static sortItemByType(items, spellSlotsData) {
         let classes = [];
-        let objects = [];
+        let objects = {};
         let feats = [];
         let spellsByLevel = Object.values(spellSlotsData)
             .reduce((acc, spellSlot) => {
@@ -158,15 +158,18 @@ export default class DataMapper {
                     //Do nothing;
                     break;
                 default://loot, consumable, container, equipment, weapon
-                    objects.push(DataMapper.mapOjbectDndDataToExport(item));
+                    if (!objects[item.type]) {
+                        objects[item.type] = []
+                    }
+                    objects[item.type].push(DataMapper.mapOjbectDndDataToExport(item));
                     break;
             }
         });
 
         return {
             classes: classes,
-            objects: objects,
             feats: feats,
+            objects,
             spellsByLevel: Object.entries(spellsByLevel)
                 .reduce((acc, [level, { slot, spells }]) => {
                     acc.push({
@@ -181,7 +184,7 @@ export default class DataMapper {
                 }, [])
                 .sort(function (a, b) {
                     return a.level - b.level;
-                })
+                }),
         };
     }
 
@@ -202,6 +205,7 @@ export default class DataMapper {
         let exportObjectData = {};
 
         exportObjectData.name = dndObjectData.name;
+        exportObjectData.type = dndObjectData.type;
         exportObjectData.quantity = dndObjectData.system.quantity;
         exportObjectData.description = DataMapper._removeFoundrySecret(DataMapper._replaceFoundryLink(dndObjectData.system.description.value));
 
