@@ -1,5 +1,7 @@
 export default class DataMapper {
 
+    static objectTypeOrder = ["weapon", "equipment", "consumable", "container", "loot"]
+
     static mapDndDataToDataExport(dataDnd = {}) {
         let dataExport = {};
 
@@ -165,7 +167,7 @@ export default class DataMapper {
 
         return {
             classes: classes,
-            objects: objects,
+            objects: objects.sort((a, b) => this.objectTypeOrder.indexOf(a.type) - this.objectTypeOrder.indexOf(b.type)),
             feats: feats,
             spellsByLevel: Object.entries(spellsByLevel)
                 .reduce((acc, [level, { slot, spells }]) => {
@@ -202,6 +204,7 @@ export default class DataMapper {
         let exportObjectData = {};
 
         exportObjectData.name = dndObjectData.name;
+        exportObjectData.type = dndObjectData.type;
         exportObjectData.quantity = dndObjectData.system.quantity;
         exportObjectData.description = DataMapper._removeFoundrySecret(DataMapper._replaceFoundryLink(dndObjectData.system.description.value));
 
