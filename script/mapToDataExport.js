@@ -1,7 +1,5 @@
 export default class DataMapper {
 
-    static objectTypeOrder = ["weapon", "equipment", "consumable", "container", "loot"]
-
     static mapDndDataToDataExport(dataDnd = {}) {
         let dataExport = {};
 
@@ -119,7 +117,7 @@ export default class DataMapper {
 
     static sortItemByType(items, spellSlotsData) {
         let classes = [];
-        let objects = [];
+        let objects = {};
         let feats = [];
         let spellsByLevel = Object.values(spellSlotsData)
             .reduce((acc, spellSlot) => {
@@ -160,15 +158,18 @@ export default class DataMapper {
                     //Do nothing;
                     break;
                 default://loot, consumable, container, equipment, weapon
-                    objects.push(DataMapper.mapOjbectDndDataToExport(item));
+                    if (!objects[item.type]) {
+                        objects[item.type] = []
+                    }
+                    objects[item.type].push(DataMapper.mapOjbectDndDataToExport(item));
                     break;
             }
         });
 
         return {
             classes: classes,
-            objects: objects.sort((a, b) => this.objectTypeOrder.indexOf(a.type) - this.objectTypeOrder.indexOf(b.type)),
             feats: feats,
+            objects,
             spellsByLevel: Object.entries(spellsByLevel)
                 .reduce((acc, [level, { slot, spells }]) => {
                     acc.push({
@@ -183,7 +184,7 @@ export default class DataMapper {
                 }, [])
                 .sort(function (a, b) {
                     return a.level - b.level;
-                })
+                }),
         };
     }
 
