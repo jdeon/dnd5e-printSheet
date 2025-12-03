@@ -205,9 +205,30 @@ export default class DataMapper {
         exportObjectData.quantity = dndObjectData.system.quantity;
         exportObjectData.description = DataMapper._removeFoundrySecret(DataMapper._replaceFoundryLink(dndObjectData.system.description.value));
 
+        if (dndObjectData?.system?.armor?.base) {
+            exportObjectData.acBonus = DataMapper._ArmorToString(dndObjectData.system.armor, dndObjectData?.actor?.system?.abilities?.dex?.mod ?? 0)
+        }
+
         return exportObjectData;
     }
 
+    static _ArmorToString(armor, dexMod) {
+        let acBonus = `${armor.base}`
+
+        if ((armor?.dex || armor?.dex === 0) && dexMod > armor.dex) {
+            acBonus += ` + ${armor.dex}`
+        } else if (dexMod > 0) {
+            acBonus += ` + ${dexMod}`
+        }
+
+        if (armor.magicalBonus) {
+            acBonus += ` + ${armor.magicalBonus}`
+        }
+
+        if (acBonus !== "10") {
+            return acBonus
+        }
+    }
     static mapFeatsDndDataToExport(dndFeatData = {}) {
         let exportFeatData = {};
 
