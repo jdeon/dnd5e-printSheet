@@ -341,6 +341,9 @@
                         <div class="accordion">
                             <button class="accordion-header">
                                 <h3>{{this.name}} ({{this.quantity}})</h3>
+                                {{#if this.damage}}
+                                <i>{{this.damage}}</i>
+                                {{/if}}
                             </button>
                             <div class="accordion-details">
                                 <span>

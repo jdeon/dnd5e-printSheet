@@ -158,7 +158,10 @@ export default class DataMapper {
                     //Do nothing;
                     break;
                 default://loot, consumable, container, equipment, weapon
-                    objects.push(DataMapper.mapOjbectDndDataToExport(item));
+                    if (!objects[item.type]) {
+                        objects[item.type] = []
+                    }
+                    objects[item.type].push(DataMapper.mapOjbectDndDataToExport(item));
                     break;
             }
         });
@@ -209,6 +212,12 @@ export default class DataMapper {
             exportObjectData.acBonus = DataMapper._ArmorToString(dndObjectData.system.armor, dndObjectData?.actor?.system?.abilities?.dex?.mod ?? 0)
         }
 
+        if (dndObjectData?.system?.damage) {
+            exportObjectData.damage = DataMapper._DamageToString(dndObjectData.system.damage)
+        }
+
+        //TODO reach
+
         return exportObjectData;
     }
 
@@ -228,6 +237,20 @@ export default class DataMapper {
         if (acBonus !== "10") {
             return acBonus
         }
+    }
+
+    static _DamageToString(damage) {
+        if (!damage.base.formula) return
+
+        let damageDice = damage.base.formula
+
+        if (damage.base?.types?.size) {
+            damageDice += ` (${Array.from(damage.base.types).join(",")})`
+        }
+
+        return damageDice
+        //TODO DEX or STR weapons (properties)
+        //TODO check magicalBonus to isMagical properties
     }
     static mapFeatsDndDataToExport(dndFeatData = {}) {
         let exportFeatData = {};
