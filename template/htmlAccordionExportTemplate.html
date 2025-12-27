@@ -349,6 +349,13 @@
                                 {{/if}}
                             </button>
                             <div class="accordion-details">
+                                {{#if this.properties}}
+                                <div class="flag-properties">
+                                    {{#each this.properties}}
+                                    <div>{{this}}</div>
+                                    {{/each}}
+                                </div>
+                                {{/if}}
                                 <span>
                                     {{{this.description}}}
                                 </span>
@@ -552,6 +559,18 @@
             }
         }
 
+        .flag-properties {
+            display: flex;
+            justify-content: center;
+
+            >div {
+                background-color: #eee;
+                border-radius: 1rem;
+                width: fit-content;
+                padding: 5px;
+                margin: 5px;
+            }
+        }
 
         td,
         th {

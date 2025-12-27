@@ -224,6 +224,13 @@ export default class DataMapper {
             exportObjectData.range = `${range} ${dndObjectData?.system?.range.units}`
         }
 
+        if (dndObjectData?.system?.properties?.size) {
+            exportObjectData.properties = dndObjectData.system.properties
+                .map((abvProperties) => game.dnd5e.config.itemProperties[abvProperties]?.label)
+                .filter((prop) => prop !== undefined)
+        }
+
+
         return exportObjectData;
     }
 
@@ -255,8 +262,8 @@ export default class DataMapper {
         }
 
         return damageDice
-        //TODO check magicalBonus to isMagical properties
     }
+
     static mapFeatsDndDataToExport(dndFeatData = {}) {
         let exportFeatData = {};
 
