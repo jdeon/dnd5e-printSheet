@@ -216,7 +216,13 @@ export default class DataMapper {
             exportObjectData.damage = DataMapper._DamageToString(dndObjectData.system.damage)
         }
 
-        //TODO reach
+        if (dndObjectData?.system?.range?.value) {
+            let range = dndObjectData.system.range.value
+            if (dndObjectData.system.range.long) {
+                range += `/${dndObjectData.system.range.long}`
+            }
+            exportObjectData.range = `${range} ${dndObjectData?.system?.range.units}`
+        }
 
         return exportObjectData;
     }
@@ -249,7 +255,6 @@ export default class DataMapper {
         }
 
         return damageDice
-        //TODO DEX or STR weapons (properties)
         //TODO check magicalBonus to isMagical properties
     }
     static mapFeatsDndDataToExport(dndFeatData = {}) {
