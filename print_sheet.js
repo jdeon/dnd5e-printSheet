@@ -167,3 +167,15 @@ Handlebars.registerHelper('times', function (n, block) {
         accum += block.fn(i);
     return accum;
 });
+
+Handlebars.registerHelper('toUnemptyArray', function (...items) {
+    items.pop() //Last items is the option, we need to remove it
+    return Array.from(items).filter((item => item && item !== ''));
+});
+
+Handlebars.registerHelper('join', function (array, delimiter) {
+    if (typeof array === 'string') return array;
+
+    const separator = typeof delimiter === 'string' ? delimiter : ', ' //Default in case delimiter is fill with option
+    return Array.from(array).join(separator)
+});

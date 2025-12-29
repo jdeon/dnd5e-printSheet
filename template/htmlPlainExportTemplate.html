@@ -289,13 +289,107 @@
                     <th>{{ localize 'DND5E.Description' }}</th>
                 </tr>
 
-                {{#each objects}}
+                {{#if objects.weapon}}
+                <tr>
+                    <td colspan="3">
+                        <div><b>{{ localize 'TYPES.Item.weaponPl' }}</b></div>
+                    </td>
+                </tr>
+
+                {{#each objects.weapon}}
+                <tr>
+                    <td>{{this.name}}</td>
+                    <td>{{this.quantity}}</td>
+                    <td>
+                        {{#if (or this.damage this.range) }}
+                        <p>
+                            <b>
+                                {{join (toUnemptyArray this.damage this.range) " - "}}
+                            </b>
+                        </p>
+                        {{/if}}
+
+                        {{#if this.properties }}
+                        <p>
+                            <i>
+                                {{join this.properties}}
+                            </i>
+                        </p>
+                        {{/if}}
+                        {{{this.description}}}
+                    </td>
+                </tr>
+                {{/each}}
+                {{/if}}
+
+                {{#if objects.equipment}}
+                <tr>
+                    <td colspan="3">
+                        <div><b>{{ localize 'TYPES.Item.equipmentPl' }}</b></div>
+                    </td>
+                </tr>
+
+                {{#each objects.equipment}}
+                <tr>
+                    <td>{{this.name}}</td>
+                    <td>{{this.quantity}}</td>
+                    <td>
+                        {{#if this.acBonus}}
+                        <p><b>{{ localize 'DND5E.AC' }} : {{this.acBonus}}</b></p>
+                        {{/if}}
+                        {{{this.description}}}
+                    </td>
+                </tr>
+                {{/each}}
+                {{/if}}
+
+                {{#if objects.consumable}}
+                <tr>
+                    <td colspan="3">
+                        <div><b>{{ localize 'TYPES.Item.consumablePl' }}</b></div>
+                    </td>
+                </tr>
+
+                {{#each objects.consumable}}
                 <tr>
                     <td>{{this.name}}</td>
                     <td>{{this.quantity}}</td>
                     <td>{{{this.description}}}</td>
                 </tr>
                 {{/each}}
+                {{/if}}
+
+                {{#if objects.container}}
+                <tr>
+                    <td colspan="3">
+                        <div><b>{{ localize 'TYPES.Item.containerPl' }}</b></div>
+                    </td>
+                </tr>
+
+                {{#each objects.container}}
+                <tr>
+                    <td>{{this.name}}</td>
+                    <td>{{this.quantity}}</td>
+                    <td>{{{this.description}}}</td>
+                </tr>
+                {{/each}}
+                {{/if}}
+
+                {{#if objects.loot}}
+                <tr>
+                    <td colspan="3">
+                        <div><b>{{ localize 'TYPES.Item.lootPl' }}</b></div>
+                    </td>
+                </tr>
+
+                {{#each objects.loot}}
+                <tr>
+                    <td>{{this.name}}</td>
+                    <td>{{this.quantity}}</td>
+                    <td>{{{this.description}}}</td>
+                </tr>
+                {{/each}}
+                {{/if}}
             </table>
         </div>
     </div>
