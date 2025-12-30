@@ -127,17 +127,23 @@ export default class PrintSheetCsv {
         outText += dataExport.money.ep + this.defaultOptions.separatorChar + dataExport.money.sp + this.defaultOptions.separatorChar;
         outText += dataExport.money.cp + this.defaultOptions.separatorChar.repeat(6) + this.defaultOptions.returnLineChar;
 
+
         outText += game.i18n.localize('TYPES.Item.weaponPl') + ' : ' + this.defaultOptions.separatorChar.repeat(10) + this.defaultOptions.returnLineChar;
         for (var i = 0; i < dataExport.objects.weapon.length; i++) {
             let weapon = dataExport.objects.weapon[i];
-            outText += weapon.name + '(' + weapon.quantity + ')' + this.defaultOptions.separatorChar.repeat(7);
+            outText += weapon.name + '(' + weapon.quantity + ')' + this.defaultOptions.separatorChar.repeat(2);
+            outText += (weapon.damage ?? '') + this.defaultOptions.separatorChar
+            outText += (weapon.range ?? '') + this.defaultOptions.separatorChar
+            const properties = Array.from(weapon.properties)
+            outText += (properties.length ? "\"" + properties.join(', ') + "\"" : '') + this.defaultOptions.separatorChar.repeat(3);
             outText += "\"" + this.deleteSpecialChar(weapon.description) + "\"" + this.defaultOptions.separatorChar.repeat(3) + this.defaultOptions.returnLineChar;
         }
 
         outText += game.i18n.localize('TYPES.Item.equipmentPl') + ' : ' + this.defaultOptions.separatorChar.repeat(10) + this.defaultOptions.returnLineChar;
         for (var i = 0; i < dataExport.objects.equipment.length; i++) {
             let equipment = dataExport.objects.equipment[i];
-            outText += equipment.name + '(' + equipment.quantity + ')' + this.defaultOptions.separatorChar.repeat(7);
+            outText += equipment.name + '(' + equipment.quantity + ')' + this.defaultOptions.separatorChar.repeat(2);
+            outText += (equipment.acBonus ? `${game.i18n.localize('DND5E.AC')} : ${equipment.acBonus}` : '') + this.defaultOptions.separatorChar.repeat(5);
             outText += "\"" + this.deleteSpecialChar(equipment.description) + "\"" + this.defaultOptions.separatorChar.repeat(3) + this.defaultOptions.returnLineChar;
         }
 
