@@ -27,7 +27,7 @@ export default class PrintSheetCsv {
         outText += this.defaultOptions.separatorChar.repeat(2)
         outText += this.defaultOptions.returnLineChar;
 
-        outText += PrintSheetCsv.createSimpleField(game.i18n.localize("DND5E.HP"), dataExport.hp.actual + '/' + dataExport.hp.max); + this.defaultOptions.separatorChar;
+        outText += PrintSheetCsv.createSimpleField(game.i18n.localize("DND5E.HP"), ' ' + dataExport.hp.actual + '/' + dataExport.hp.max); + this.defaultOptions.separatorChar;
         outText += PrintSheetCsv.createSimpleField(game.i18n.localize("DND5E.AC"), dataExport.ac);
 
         outText += game.i18n.localize("DND5E.Speed") + ' : ' + this.defaultOptions.separatorChar;
@@ -150,7 +150,8 @@ export default class PrintSheetCsv {
         outText += game.i18n.localize('TYPES.Item.consumablePl') + ' : ' + this.defaultOptions.separatorChar.repeat(10) + this.defaultOptions.returnLineChar;
         for (var i = 0; i < dataExport.objects.consumable.length; i++) {
             let consumable = dataExport.objects.consumable[i];
-            outText += consumable.name + '(' + consumable.quantity + ')' + this.defaultOptions.separatorChar.repeat(7);
+            outText += consumable.name + '(' + consumable.quantity + ')' + this.defaultOptions.separatorChar.repeat(2);
+            outText += (consumable.uses?.max ? ` ${consumable.uses.remain ?? 0}/${consumable.uses.max}` : '') + this.defaultOptions.separatorChar.repeat(5);
             outText += "\"" + this.deleteSpecialChar(consumable.description) + "\"" + this.defaultOptions.separatorChar.repeat(3) + this.defaultOptions.returnLineChar;
         }
 

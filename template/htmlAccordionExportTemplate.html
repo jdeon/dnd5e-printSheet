@@ -407,6 +407,9 @@
                         <div class="accordion">
                             <button class="accordion-header">
                                 <h3>{{this.name}} ({{this.quantity}})</h3>
+                                {{#if this.uses.max}}
+                                <p><i>{{safeVal this.uses.remain '0'}} / {{this.uses.max}}</i></p>
+                                {{/if}}
                             </button>
                             <div class="accordion-details">
                                 <span>

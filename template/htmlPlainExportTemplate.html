@@ -354,7 +354,12 @@
                 <tr>
                     <td>{{this.name}}</td>
                     <td>{{this.quantity}}</td>
-                    <td>{{{this.description}}}</td>
+                    <td>
+                        {{#if this.uses.max}}
+                        <p><b>{{safeVal this.uses.remain '0'}} / {{this.uses.max}}</b></p>
+                        {{/if}}
+                        {{{this.description}}}
+                    </td>
                 </tr>
                 {{/each}}
                 {{/if}}

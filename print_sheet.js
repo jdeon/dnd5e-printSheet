@@ -179,3 +179,8 @@ Handlebars.registerHelper('join', function (array, delimiter) {
     const separator = typeof delimiter === 'string' ? delimiter : ', ' //Default in case delimiter is fill with option
     return Array.from(array).join(separator)
 });
+
+Handlebars.registerHelper('safeVal', function (value, safeValue) {
+    var out = value || safeValue;
+    return new Handlebars.SafeString(out);
+});

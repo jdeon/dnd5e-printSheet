@@ -231,6 +231,12 @@ export default class DataMapper {
                 .filter((prop) => prop !== undefined)
         }
 
+        if (dndObjectData?.system?.uses) {
+            exportObjectData.uses = {
+                remain: dndObjectData?.system?.uses.value,
+                max: dndObjectData?.system?.uses.max
+            }
+        }
 
         return exportObjectData;
     }
