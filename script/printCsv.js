@@ -127,6 +127,12 @@ export default class PrintSheetCsv {
         outText += dataExport.money.ep + this.defaultOptions.separatorChar + dataExport.money.sp + this.defaultOptions.separatorChar;
         outText += dataExport.money.cp + this.defaultOptions.separatorChar.repeat(6) + this.defaultOptions.returnLineChar;
 
+        outText += this.defaultOptions.separatorChar.repeat(10) + this.defaultOptions.returnLineChar;
+
+        outText += game.i18n.localize("DND5E-PRINT-SHEET.Name") + " (" + game.i18n.localize("DND5E.Quantity") + ")" + this.defaultOptions.separatorChar.repeat(2);
+        outText += game.i18n.localize("DND5E.Properties") + this.defaultOptions.separatorChar.repeat(3);
+        outText += game.i18n.localize("TYPES.Item.container") + this.defaultOptions.separatorChar.repeat(2);
+        outText += game.i18n.localize("DND5E.Description") + this.defaultOptions.separatorChar.repeat(3) + this.defaultOptions.returnLineChar;
 
         outText += game.i18n.localize('TYPES.Item.weaponPl') + ' : ' + this.defaultOptions.separatorChar.repeat(10) + this.defaultOptions.returnLineChar;
         for (var i = 0; i < dataExport.objects.weapon.length; i++) {
@@ -135,7 +141,8 @@ export default class PrintSheetCsv {
             outText += (weapon.damage ?? '') + this.defaultOptions.separatorChar
             outText += (weapon.range ?? '') + this.defaultOptions.separatorChar
             const properties = Array.from(weapon.properties)
-            outText += (properties.length ? "\"" + properties.join(', ') + "\"" : '') + this.defaultOptions.separatorChar.repeat(3);
+            outText += (properties.length ? "\"" + properties.join(', ') + "\"" : '') + this.defaultOptions.separatorChar;
+            outText += (weapon.container ?? '') + this.defaultOptions.separatorChar.repeat(2);
             outText += "\"" + this.deleteSpecialChar(weapon.description) + "\"" + this.defaultOptions.separatorChar.repeat(3) + this.defaultOptions.returnLineChar;
         }
 
@@ -143,7 +150,8 @@ export default class PrintSheetCsv {
         for (var i = 0; i < dataExport.objects.equipment.length; i++) {
             let equipment = dataExport.objects.equipment[i];
             outText += equipment.name + '(' + equipment.quantity + ')' + this.defaultOptions.separatorChar.repeat(2);
-            outText += (equipment.acBonus ? `${game.i18n.localize('DND5E.AC')} : ${equipment.acBonus}` : '') + this.defaultOptions.separatorChar.repeat(5);
+            outText += (equipment.acBonus ? `${game.i18n.localize('DND5E.AC')} : ${equipment.acBonus}` : '') + this.defaultOptions.separatorChar.repeat(3);
+            outText += (equipment.container ?? '') + this.defaultOptions.separatorChar.repeat(2);
             outText += "\"" + this.deleteSpecialChar(equipment.description) + "\"" + this.defaultOptions.separatorChar.repeat(3) + this.defaultOptions.returnLineChar;
         }
 
@@ -151,21 +159,24 @@ export default class PrintSheetCsv {
         for (var i = 0; i < dataExport.objects.consumable.length; i++) {
             let consumable = dataExport.objects.consumable[i];
             outText += consumable.name + '(' + consumable.quantity + ')' + this.defaultOptions.separatorChar.repeat(2);
-            outText += (consumable.uses?.max ? ` ${consumable.uses.remain ?? 0}/${consumable.uses.max}` : '') + this.defaultOptions.separatorChar.repeat(5);
+            outText += (consumable.uses?.max ? ` ${consumable.uses.remain ?? 0}/${consumable.uses.max}` : '') + this.defaultOptions.separatorChar.repeat(3);
+            outText += (consumable.container ?? '') + this.defaultOptions.separatorChar.repeat(2);
             outText += "\"" + this.deleteSpecialChar(consumable.description) + "\"" + this.defaultOptions.separatorChar.repeat(3) + this.defaultOptions.returnLineChar;
         }
 
         outText += game.i18n.localize('TYPES.Item.containerPl') + ' : ' + this.defaultOptions.separatorChar.repeat(10) + this.defaultOptions.returnLineChar;
         for (var i = 0; i < dataExport.objects.container.length; i++) {
             let container = dataExport.objects.container[i];
-            outText += container.name + '(' + container.quantity + ')' + this.defaultOptions.separatorChar.repeat(7);
+            outText += container.name + '(' + container.quantity + ')' + this.defaultOptions.separatorChar.repeat(5);
+            outText += (container.container ?? '') + this.defaultOptions.separatorChar.repeat(2);
             outText += "\"" + this.deleteSpecialChar(container.description) + "\"" + this.defaultOptions.separatorChar.repeat(3) + this.defaultOptions.returnLineChar;
         }
 
         outText += game.i18n.localize('TYPES.Item.lootPl') + ' : ' + this.defaultOptions.separatorChar.repeat(10) + this.defaultOptions.returnLineChar;
         for (var i = 0; i < dataExport.objects.loot.length; i++) {
             let loot = dataExport.objects.loot[i];
-            outText += loot.name + '(' + loot.quantity + ')' + this.defaultOptions.separatorChar.repeat(7);
+            outText += loot.name + '(' + loot.quantity + ')' + this.defaultOptions.separatorChar.repeat(5);
+            outText += (loot.container ?? '') + this.defaultOptions.separatorChar.repeat(2);
             outText += "\"" + this.deleteSpecialChar(loot.description) + "\"" + this.defaultOptions.separatorChar.repeat(3) + this.defaultOptions.returnLineChar;
         }
         outText += this.defaultOptions.separatorChar.repeat(10) + this.defaultOptions.returnLineChar;

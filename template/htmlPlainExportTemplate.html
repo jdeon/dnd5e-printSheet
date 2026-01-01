@@ -298,7 +298,12 @@
 
                 {{#each objects.weapon}}
                 <tr>
-                    <td>{{this.name}}</td>
+                    <td>
+                        <p>{{this.name}}</p>
+                        {{#if this.container}}
+                        <p><i>{{this.container}}</i></p>
+                        {{/if}}
+                    </td>
                     <td>{{this.quantity}}</td>
                     <td>
                         {{#if (or this.damage this.range) }}
@@ -331,7 +336,12 @@
 
                 {{#each objects.equipment}}
                 <tr>
-                    <td>{{this.name}}</td>
+                    <td>
+                        <p>{{this.name}}</p>
+                        {{#if this.container}}
+                        <p><i>{{this.container}}</i></p>
+                        {{/if}}
+                    </td>
                     <td>{{this.quantity}}</td>
                     <td>
                         {{#if this.acBonus}}
@@ -352,7 +362,12 @@
 
                 {{#each objects.consumable}}
                 <tr>
-                    <td>{{this.name}}</td>
+                    <td>
+                        <p>{{this.name}}</p>
+                        {{#if this.container}}
+                        <p><i>{{this.container}}</i></p>
+                        {{/if}}
+                    </td>
                     <td>{{this.quantity}}</td>
                     <td>
                         {{#if this.uses.max}}
@@ -373,7 +388,12 @@
 
                 {{#each objects.container}}
                 <tr>
-                    <td>{{this.name}}</td>
+                    <td>
+                        <p>{{this.name}}</p>
+                        {{#if this.container}}
+                        <p><i>{{this.container}}</i></p>
+                        {{/if}}
+                    </td>
                     <td>{{this.quantity}}</td>
                     <td>{{{this.description}}}</td>
                 </tr>
@@ -389,7 +409,12 @@
 
                 {{#each objects.loot}}
                 <tr>
-                    <td>{{this.name}}</td>
+                    <td>
+                        <p>{{this.name}}</p>
+                        {{#if this.container}}
+                        <p><i>{{this.container}}</i></p>
+                        {{/if}}
+                    </td>
                     <td>{{this.quantity}}</td>
                     <td>{{{this.description}}}</td>
                 </tr>

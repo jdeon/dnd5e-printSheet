@@ -246,6 +246,10 @@ export default class DataMapper {
             }
         }
 
+        if (dndObjectData?.container?.name) {
+            exportObjectData.container = dndObjectData.container.name
+        }
+
         return exportObjectData;
     }
 
