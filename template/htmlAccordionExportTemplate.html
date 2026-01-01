@@ -341,8 +341,21 @@
                         <div class="accordion">
                             <button class="accordion-header">
                                 <h3>{{this.name}} ({{this.quantity}})</h3>
+                                {{#if this.damage}}
+                                <i>{{this.damage}}</i>
+                                {{/if}}
+                                {{#if this.range}}
+                                <i>{{this.range}}</i>
+                                {{/if}}
                             </button>
                             <div class="accordion-details">
+                                {{#if this.properties}}
+                                <div class="flag-properties">
+                                    {{#each this.properties}}
+                                    <div>{{this}}</div>
+                                    {{/each}}
+                                </div>
+                                {{/if}}
                                 <span>
                                     {{{this.description}}}
                                 </span>
@@ -366,6 +379,9 @@
                         <div class="accordion">
                             <button class="accordion-header">
                                 <h3>{{this.name}} ({{this.quantity}})</h3>
+                                {{#if this.acBonus}}
+                                <i>{{ localize 'DND5E.AC' }} : {{this.acBonus}}</i>
+                                {{/if}}
                             </button>
                             <div class="accordion-details">
                                 <span>
@@ -391,6 +407,9 @@
                         <div class="accordion">
                             <button class="accordion-header">
                                 <h3>{{this.name}} ({{this.quantity}})</h3>
+                                {{#if this.uses.max}}
+                                <p><i>{{safeVal this.uses.remain '0'}} / {{this.uses.max}}</i></p>
+                                {{/if}}
                             </button>
                             <div class="accordion-details">
                                 <span>
@@ -505,6 +524,12 @@
             text-align: left;
             outline: none;
             transition: 0.4s;
+
+            i {
+                text-align: center;
+                display: block;
+                font-size: 1rem;
+            }
         }
 
         .active,
@@ -537,6 +562,18 @@
             }
         }
 
+        .flag-properties {
+            display: flex;
+            justify-content: center;
+
+            >div {
+                background-color: #eee;
+                border-radius: 1rem;
+                width: fit-content;
+                padding: 5px;
+                margin: 5px;
+            }
+        }
 
         td,
         th {
