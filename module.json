@@ -2,10 +2,10 @@
   "id": "dnd5e-print-sheet",
   "title": "Print sheet for D&D5e",
   "description": "Module to print PC sheets",
-  "version": "2.7.1",
+  "version": "2.8.0",
   "compatibility": {
     "minimum": "13",
-    "verified": "13.350"
+    "verified": "13.351"
   },
   "authors": [
     {
@@ -17,17 +17,17 @@
     "/print_sheet.js"
   ],
   "languages": [
-		{
-		  "lang": "en",
-		  "name": "English",
-		  "path": "lang/en.json"
-		},
-		{
-			"lang": "fr",
-			"name": "Français",
-			"path": "lang/fr.json"
-		}
-	],
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang": "fr",
+      "name": "Français",
+      "path": "lang/fr.json"
+    }
+  ],
   "relationships": {
     "systems": [
       {
@@ -35,12 +35,12 @@
         "type": "system",
         "compatibility": {
           "minimum": "5",
-          "verified": "5.1.10"
+          "verified": "5.2.4"
         }
       }
     ]
   },
-	"url": "https://github.com/jdeon/dnd5e-printSheet",
-	"manifest": "https://github.com/jdeon/dnd5e-printSheet/releases/latest/download/module.json",
-	"download": "https://github.com/jdeon/dnd5e-printSheet/archive/refs/tags/VERSION_PATHHOLDER.zip"
+  "url": "https://github.com/jdeon/dnd5e-printSheet",
+  "manifest": "https://github.com/jdeon/dnd5e-printSheet/releases/latest/download/module.json",
+  "download": "https://github.com/jdeon/dnd5e-printSheet/archive/refs/tags/VERSION_PATHHOLDER.zip"
 }
