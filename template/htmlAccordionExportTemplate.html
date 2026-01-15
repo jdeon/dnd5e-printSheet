@@ -356,6 +356,11 @@
                                     {{/each}}
                                 </div>
                                 {{/if}}
+
+                                {{#if this.container}}
+                                <p><b> {{ localize 'TYPES.Item.container' }} : {{this.container}}</b></p>
+                                {{/if}}
+
                                 <span>
                                     {{{this.description}}}
                                 </span>
@@ -384,6 +389,10 @@
                                 {{/if}}
                             </button>
                             <div class="accordion-details">
+                                {{#if this.container}}
+                                <p><b> {{ localize 'TYPES.Item.container' }} : {{this.container}}</b></p>
+                                {{/if}}
+
                                 <span>
                                     {{{this.description}}}
                                 </span>
@@ -412,6 +421,10 @@
                                 {{/if}}
                             </button>
                             <div class="accordion-details">
+                                {{#if this.container}}
+                                <p><b> {{ localize 'TYPES.Item.container' }} : {{this.container}}</b></p>
+                                {{/if}}
+
                                 <span>
                                     {{{this.description}}}
                                 </span>
@@ -437,6 +450,10 @@
                                 <h3>{{this.name}} ({{this.quantity}})</h3>
                             </button>
                             <div class="accordion-details">
+                                {{#if this.container}}
+                                <p><b> {{ localize 'TYPES.Item.container' }} : {{this.container}}</b></p>
+                                {{/if}}
+
                                 <span>
                                     {{{this.description}}}
                                 </span>
@@ -462,6 +479,10 @@
                                 <h3>{{this.name}} ({{this.quantity}})</h3>
                             </button>
                             <div class="accordion-details">
+                                {{#if this.container}}
+                                <p><b> {{ localize 'TYPES.Item.container' }} : {{this.container}}</b></p>
+                                {{/if}}
+
                                 <span>
                                     {{{this.description}}}
                                 </span>
