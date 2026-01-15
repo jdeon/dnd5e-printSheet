@@ -158,10 +158,7 @@ export default class DataMapper {
                     //Do nothing;
                     break;
                 default://loot, consumable, container, equipment, weapon
-                    if (!objects[item.type]) {
-                        objects[item.type] = []
-                    }
-                    objects[item.type].push(DataMapper.mapOjbectDndDataToExport(item));
+                    DataMapper.sortObject(objects, item)
                     break;
             }
         });
@@ -201,6 +198,17 @@ export default class DataMapper {
         return exportClassData;
     }
 
+    static sortObject(gatherObject, currentItem) {
+        if (currentItem.type === 'container' && currentItem.system?.allContainedItems?.size) {
+            currentItem.system.allContainedItems.contents.forEach((item) => DataMapper.sortObject(gatherObject, item))
+        }
+
+        if (!gatherObject[currentItem.type]) {
+            gatherObject[currentItem.type] = []
+        }
+        gatherObject[currentItem.type].push(DataMapper.mapOjbectDndDataToExport(currentItem));
+    }
+
     static mapOjbectDndDataToExport(dndObjectData = {}) {
         let exportObjectData = {};
 
@@ -236,6 +244,10 @@ export default class DataMapper {
                 remain: dndObjectData?.system?.uses.value,
                 max: dndObjectData?.system?.uses.max
             }
+        }
+
+        if (dndObjectData?.container?.name) {
+            exportObjectData.container = dndObjectData.container.name
         }
 
         return exportObjectData;
