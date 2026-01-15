@@ -117,7 +117,7 @@ export default class DataMapper {
 
     static sortItemByType(items, spellSlotsData) {
         let classes = [];
-        let objects = [];
+        let objects = {};
         let feats = [];
         let spellsByLevel = Object.values(spellSlotsData)
             .reduce((acc, spellSlot) => {
@@ -158,15 +158,15 @@ export default class DataMapper {
                     //Do nothing;
                     break;
                 default://loot, consumable, container, equipment, weapon
-                    objects.push(DataMapper.mapOjbectDndDataToExport(item));
+                    DataMapper.sortObject(objects, item)
                     break;
             }
         });
 
         return {
             classes: classes,
-            objects: objects,
             feats: feats,
+            objects,
             spellsByLevel: Object.entries(spellsByLevel)
                 .reduce((acc, [level, { slot, spells }]) => {
                     acc.push({
@@ -181,7 +181,7 @@ export default class DataMapper {
                 }, [])
                 .sort(function (a, b) {
                     return a.level - b.level;
-                })
+                }),
         };
     }
 
@@ -198,14 +198,89 @@ export default class DataMapper {
         return exportClassData;
     }
 
+    static sortObject(gatherObject, currentItem) {
+        if (currentItem.type === 'container' && currentItem.system?.allContainedItems?.size) {
+            currentItem.system.allContainedItems.contents.forEach((item) => DataMapper.sortObject(gatherObject, item))
+        }
+
+        if (!gatherObject[currentItem.type]) {
+            gatherObject[currentItem.type] = []
+        }
+        gatherObject[currentItem.type].push(DataMapper.mapOjbectDndDataToExport(currentItem));
+    }
+
     static mapOjbectDndDataToExport(dndObjectData = {}) {
         let exportObjectData = {};
 
         exportObjectData.name = dndObjectData.name;
+        exportObjectData.type = dndObjectData.type;
         exportObjectData.quantity = dndObjectData.system.quantity;
         exportObjectData.description = DataMapper._removeFoundrySecret(DataMapper._replaceFoundryLink(dndObjectData.system.description.value));
 
+        if (dndObjectData?.system?.armor?.base) {
+            exportObjectData.acBonus = DataMapper._ArmorToString(dndObjectData.system.armor, dndObjectData?.actor?.system?.abilities?.dex?.mod ?? 0)
+        }
+
+        if (dndObjectData?.system?.damage) {
+            exportObjectData.damage = DataMapper._DamageToString(dndObjectData.system.damage)
+        }
+
+        if (dndObjectData?.system?.range?.value) {
+            let range = dndObjectData.system.range.value
+            if (dndObjectData.system.range.long) {
+                range += `/${dndObjectData.system.range.long}`
+            }
+            exportObjectData.range = `${range} ${dndObjectData?.system?.range.units}`
+        }
+
+        if (dndObjectData?.system?.properties?.size) {
+            exportObjectData.properties = dndObjectData.system.properties
+                .map((abvProperties) => game.dnd5e.config.itemProperties[abvProperties]?.label)
+                .filter((prop) => prop !== undefined)
+        }
+
+        if (dndObjectData?.system?.uses) {
+            exportObjectData.uses = {
+                remain: dndObjectData?.system?.uses.value,
+                max: dndObjectData?.system?.uses.max
+            }
+        }
+
+        if (dndObjectData?.container?.name) {
+            exportObjectData.container = dndObjectData.container.name
+        }
+
         return exportObjectData;
+    }
+
+    static _ArmorToString(armor, dexMod) {
+        let acBonus = `${armor.base}`
+
+        if ((armor?.dex || armor?.dex === 0) && dexMod > armor.dex) {
+            acBonus += ` + ${armor.dex}`
+        } else if (dexMod > 0) {
+            acBonus += ` + ${dexMod}`
+        }
+
+        if (armor.magicalBonus) {
+            acBonus += ` + ${armor.magicalBonus}`
+        }
+
+        if (acBonus !== "10") {
+            return acBonus
+        }
+    }
+
+    static _DamageToString(damage) {
+        if (!damage.base.formula) return
+
+        let damageDice = damage.base.formula
+
+        if (damage.base?.types?.size) {
+            damageDice += ` (${Array.from(damage.base.types).join(",")})`
+        }
+
+        return damageDice
     }
 
     static mapFeatsDndDataToExport(dndFeatData = {}) {

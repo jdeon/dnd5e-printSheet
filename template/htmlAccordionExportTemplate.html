@@ -328,14 +328,39 @@
                 </tr>
             </table>
             <table>
-                {{#each objects}}
+                {{#if objects.weapon}}
+                <tr>
+                    <td>
+                        <div><b>{{ localize 'TYPES.Item.weaponPl' }}</b></div>
+                    </td>
+                </tr>
+
+                {{#each objects.weapon}}
                 <tr>
                     <td class="nested-table">
                         <div class="accordion">
                             <button class="accordion-header">
                                 <h3>{{this.name}} ({{this.quantity}})</h3>
+                                {{#if this.damage}}
+                                <i>{{this.damage}}</i>
+                                {{/if}}
+                                {{#if this.range}}
+                                <i>{{this.range}}</i>
+                                {{/if}}
                             </button>
                             <div class="accordion-details">
+                                {{#if this.properties}}
+                                <div class="flag-properties">
+                                    {{#each this.properties}}
+                                    <div>{{this}}</div>
+                                    {{/each}}
+                                </div>
+                                {{/if}}
+
+                                {{#if this.container}}
+                                <p><b> {{ localize 'TYPES.Item.container' }} : {{this.container}}</b></p>
+                                {{/if}}
+
                                 <span>
                                     {{{this.description}}}
                                 </span>
@@ -344,6 +369,129 @@
                     </td>
                 </tr>
                 {{/each}}
+                {{/if}}
+
+                {{#if objects.equipment}}
+                <tr>
+                    <td>
+                        <div><b>{{ localize 'TYPES.Item.equipmentPl' }}</b></div>
+                    </td>
+                </tr>
+
+                {{#each objects.equipment}}
+                <tr>
+                    <td class="nested-table">
+                        <div class="accordion">
+                            <button class="accordion-header">
+                                <h3>{{this.name}} ({{this.quantity}})</h3>
+                                {{#if this.acBonus}}
+                                <i>{{ localize 'DND5E.AC' }} : {{this.acBonus}}</i>
+                                {{/if}}
+                            </button>
+                            <div class="accordion-details">
+                                {{#if this.container}}
+                                <p><b> {{ localize 'TYPES.Item.container' }} : {{this.container}}</b></p>
+                                {{/if}}
+
+                                <span>
+                                    {{{this.description}}}
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {{/each}}
+                {{/if}}
+
+                {{#if objects.consumable}}
+                <tr>
+                    <td>
+                        <div><b>{{ localize 'TYPES.Item.consumablePl' }}</b></div>
+                    </td>
+                </tr>
+
+                {{#each objects.consumable}}
+                <tr>
+                    <td class="nested-table">
+                        <div class="accordion">
+                            <button class="accordion-header">
+                                <h3>{{this.name}} ({{this.quantity}})</h3>
+                                {{#if this.uses.max}}
+                                <p><i>{{safeVal this.uses.remain '0'}} / {{this.uses.max}}</i></p>
+                                {{/if}}
+                            </button>
+                            <div class="accordion-details">
+                                {{#if this.container}}
+                                <p><b> {{ localize 'TYPES.Item.container' }} : {{this.container}}</b></p>
+                                {{/if}}
+
+                                <span>
+                                    {{{this.description}}}
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {{/each}}
+                {{/if}}
+
+                {{#if objects.container}}
+                <tr>
+                    <td>
+                        <div><b>{{ localize 'TYPES.Item.containerPl' }}</b></div>
+                    </td>
+                </tr>
+
+                {{#each objects.container}}
+                <tr>
+                    <td class="nested-table">
+                        <div class="accordion">
+                            <button class="accordion-header">
+                                <h3>{{this.name}} ({{this.quantity}})</h3>
+                            </button>
+                            <div class="accordion-details">
+                                {{#if this.container}}
+                                <p><b> {{ localize 'TYPES.Item.container' }} : {{this.container}}</b></p>
+                                {{/if}}
+
+                                <span>
+                                    {{{this.description}}}
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {{/each}}
+                {{/if}}
+
+                {{#if objects.loot}}
+                <tr>
+                    <td>
+                        <div><b>{{ localize 'TYPES.Item.lootPl' }}</b></div>
+                    </td>
+                </tr>
+
+                {{#each objects.loot}}
+                <tr>
+                    <td class="nested-table">
+                        <div class="accordion">
+                            <button class="accordion-header">
+                                <h3>{{this.name}} ({{this.quantity}})</h3>
+                            </button>
+                            <div class="accordion-details">
+                                {{#if this.container}}
+                                <p><b> {{ localize 'TYPES.Item.container' }} : {{this.container}}</b></p>
+                                {{/if}}
+
+                                <span>
+                                    {{{this.description}}}
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {{/each}}
+                {{/if}}
             </table>
         </div>
     </div>
@@ -397,6 +545,12 @@
             text-align: left;
             outline: none;
             transition: 0.4s;
+
+            i {
+                text-align: center;
+                display: block;
+                font-size: 1rem;
+            }
         }
 
         .active,
@@ -429,6 +583,18 @@
             }
         }
 
+        .flag-properties {
+            display: flex;
+            justify-content: center;
+
+            >div {
+                background-color: #eee;
+                border-radius: 1rem;
+                width: fit-content;
+                padding: 5px;
+                margin: 5px;
+            }
+        }
 
         td,
         th {
